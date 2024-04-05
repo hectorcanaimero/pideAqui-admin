@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "632669026467",
+    "project_id": "sport-trivia-hgcdqn",
+    "storage_bucket": "sport-trivia-hgcdqn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:632669026467:android:9e549fa1eca1eaff80a716",
+        "android_client_info": {
+          "package_name": "com.guayoyo.pideaqui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "632669026467-65v9v4d2og13gveaei0n5g87j2qtg7vk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.guayoyo.pideaqui",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "632669026467-u7e3r5vv1q4bilfpg9uackradbmnunbc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-9zOJCO_I_vnP34xgtfevmYXNp5sc0L4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "632669026467-u7e3r5vv1q4bilfpg9uackradbmnunbc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "632669026467-984q2ulvetjt2gfogmq254platiom72h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.guayoyo.sporttrivia"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:632669026467:android:ab22b071f7e39e7080a716",
+        "android_client_info": {
+          "package_name": "com.guayoyo.sporttrivia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "632669026467-c5jneidht8f15l823mcjkvec021ed4es.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.guayoyo.sporttrivia",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "632669026467-u7e3r5vv1q4bilfpg9uackradbmnunbc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-9zOJCO_I_vnP34xgtfevmYXNp5sc0L4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "632669026467-u7e3r5vv1q4bilfpg9uackradbmnunbc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "632669026467-984q2ulvetjt2gfogmq254platiom72h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.guayoyo.sporttrivia"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

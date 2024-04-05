@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>632669026467-c5h52hregre46pifrfukti1rmpann4fh.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.632669026467-c5h52hregre46pifrfukti1rmpann4fh</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>632669026467-65v9v4d2og13gveaei0n5g87j2qtg7vk.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCZTqE6nZZ9yxYW_zhWRH0K996St7zE1jE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>632669026467</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.guayoyo.pideaqui</string>
+	<key>PROJECT_ID</key>
+	<string>sport-trivia-hgcdqn</string>
+	<key>STORAGE_BUCKET</key>
+	<string>sport-trivia-hgcdqn.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:632669026467:ios:4f2ce56dd9858d8980a716</string>
+</dict>
+</plist>
