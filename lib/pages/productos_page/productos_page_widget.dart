@@ -202,6 +202,18 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                         ),
                                       ),
                                     ),
+                                    Text(
+                                      functions
+                                          .parseRefCompany(
+                                              FFAppState().companyRef!.id)
+                                          .id,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Readex Pro',
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
                                     Expanded(
                                       child: Padding(
                                         padding: const EdgeInsetsDirectional.fromSTEB(
@@ -412,8 +424,7 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                                               },
                                                             ),
                                                           ),
-                                                        ].divide(const SizedBox(
-                                                            width: 12.0)),
+                                                        ],
                                                       ),
                                                     ),
                                                     if (listViewProductsRecord
@@ -668,156 +679,232 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                                       ),
                                                     ),
                                                     Expanded(
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            listViewCategoriesRecord
-                                                                .name,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
-                                                                  fontSize:
-                                                                      16.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                          ),
-                                                        ].divide(const SizedBox(
-                                                            height: 4.0)),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    8.0,
+                                                                    0.0,
+                                                                    8.0,
+                                                                    0.0),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              listViewCategoriesRecord
+                                                                  .name,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Readex Pro',
+                                                                    fontSize:
+                                                                        16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                            ),
+                                                          ].divide(const SizedBox(
+                                                              height: 4.0)),
+                                                        ),
                                                       ),
                                                     ),
-                                                    FlutterFlowIconButton(
-                                                      borderRadius: 20.0,
-                                                      borderWidth: 1.0,
-                                                      buttonSize: 40.0,
-                                                      icon: FaIcon(
-                                                        FontAwesomeIcons
-                                                            .trashAlt,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .error,
-                                                        size: 24.0,
-                                                      ),
-                                                      onPressed: () async {
-                                                        var confirmDialogResponse =
-                                                            await showDialog<
-                                                                    bool>(
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (alertDialogContext) {
-                                                                    return WebViewAware(
-                                                                      child:
-                                                                          AlertDialog(
-                                                                        title: const Text(
-                                                                            'Info'),
-                                                                        content:
-                                                                            const Text('Vas a eliminar esta categoria?'),
-                                                                        actions: [
-                                                                          TextButton(
-                                                                            onPressed: () =>
-                                                                                Navigator.pop(alertDialogContext, false),
-                                                                            child:
-                                                                                const Text('No'),
-                                                                          ),
-                                                                          TextButton(
-                                                                            onPressed: () =>
-                                                                                Navigator.pop(alertDialogContext, true),
-                                                                            child:
-                                                                                const Text('Si'),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    );
-                                                                  },
-                                                                ) ??
-                                                                false;
-                                                        if (confirmDialogResponse) {
-                                                          _model.haveProduct =
-                                                              await queryProductsRecordCount(
-                                                            queryBuilder:
-                                                                (productsRecord) =>
-                                                                    productsRecord
-                                                                        .where(
-                                                              'category',
-                                                              isEqualTo:
-                                                                  listViewCategoriesRecord
-                                                                      .reference,
-                                                            ),
-                                                          );
-                                                          if (_model
-                                                                  .haveProduct ==
-                                                              0) {
-                                                            await listViewCategoriesRecord
-                                                                .reference
-                                                                .delete();
-                                                            ScaffoldMessenger
-                                                                    .of(context)
-                                                                .showSnackBar(
-                                                              SnackBar(
-                                                                content: Text(
-                                                                  'Se Elimino la categoria!',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  6.0,
+                                                                  0.0),
+                                                      child:
+                                                          FlutterFlowIconButton(
+                                                        borderRadius: 20.0,
+                                                        borderWidth: 1.0,
+                                                        buttonSize: 36.0,
+                                                        icon: FaIcon(
+                                                          FontAwesomeIcons.edit,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          size: 24.0,
+                                                        ),
+                                                        onPressed: () async {
+                                                          await showModalBottomSheet(
+                                                            isScrollControlled:
+                                                                true,
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            enableDrag: false,
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return WebViewAware(
+                                                                child:
+                                                                    GestureDetector(
+                                                                  onTap: () => _model
+                                                                          .unfocusNode
+                                                                          .canRequestFocus
+                                                                      ? FocusScope.of(
+                                                                              context)
+                                                                          .requestFocus(_model
+                                                                              .unfocusNode)
+                                                                      : FocusScope.of(
+                                                                              context)
+                                                                          .unfocus(),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: MediaQuery
+                                                                        .viewInsetsOf(
+                                                                            context),
+                                                                    child:
+                                                                        CreateCategoryComponentWidget(
+                                                                      uid: listViewCategoriesRecord
+                                                                          .reference,
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                                duration: const Duration(
-                                                                    milliseconds:
-                                                                        4000),
-                                                                backgroundColor:
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondary,
+                                                              );
+                                                            },
+                                                          ).then((value) =>
+                                                              safeSetState(
+                                                                  () {}));
+                                                        },
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  6.0,
+                                                                  0.0),
+                                                      child:
+                                                          FlutterFlowIconButton(
+                                                        borderRadius: 20.0,
+                                                        borderWidth: 1.0,
+                                                        buttonSize: 36.0,
+                                                        icon: FaIcon(
+                                                          FontAwesomeIcons
+                                                              .trashAlt,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .error,
+                                                          size: 24.0,
+                                                        ),
+                                                        onPressed: () async {
+                                                          var confirmDialogResponse =
+                                                              await showDialog<
+                                                                      bool>(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (alertDialogContext) {
+                                                                      return WebViewAware(
+                                                                        child:
+                                                                            AlertDialog(
+                                                                          title:
+                                                                              const Text('Info'),
+                                                                          content:
+                                                                              const Text('Vas a eliminar esta categoria?'),
+                                                                          actions: [
+                                                                            TextButton(
+                                                                              onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                              child: const Text('No'),
+                                                                            ),
+                                                                            TextButton(
+                                                                              onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                              child: const Text('Si'),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      );
+                                                                    },
+                                                                  ) ??
+                                                                  false;
+                                                          if (confirmDialogResponse) {
+                                                            _model.haveProduct =
+                                                                await queryProductsRecordCount(
+                                                              queryBuilder:
+                                                                  (productsRecord) =>
+                                                                      productsRecord
+                                                                          .where(
+                                                                'category',
+                                                                isEqualTo:
+                                                                    listViewCategoriesRecord
+                                                                        .reference,
                                                               ),
                                                             );
-                                                          } else {
-                                                            await showDialog(
-                                                              context: context,
-                                                              builder:
-                                                                  (alertDialogContext) {
-                                                                return WebViewAware(
-                                                                  child:
-                                                                      AlertDialog(
-                                                                    title: const Text(
-                                                                        'Info'),
-                                                                    content: const Text(
-                                                                        'No se elimino la categoria. Tienes productos asociados a ella'),
-                                                                    actions: [
-                                                                      TextButton(
-                                                                        onPressed:
-                                                                            () =>
-                                                                                Navigator.pop(alertDialogContext),
-                                                                        child: const Text(
-                                                                            'Ok'),
-                                                                      ),
-                                                                    ],
+                                                            if (_model
+                                                                    .haveProduct ==
+                                                                0) {
+                                                              await listViewCategoriesRecord
+                                                                  .reference
+                                                                  .delete();
+                                                              ScaffoldMessenger
+                                                                      .of(context)
+                                                                  .showSnackBar(
+                                                                SnackBar(
+                                                                  content: Text(
+                                                                    'Se Elimino la categoria!',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryText,
+                                                                    ),
                                                                   ),
-                                                                );
-                                                              },
-                                                            );
+                                                                  duration: const Duration(
+                                                                      milliseconds:
+                                                                          4000),
+                                                                  backgroundColor:
+                                                                      FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondary,
+                                                                ),
+                                                              );
+                                                            } else {
+                                                              await showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (alertDialogContext) {
+                                                                  return WebViewAware(
+                                                                    child:
+                                                                        AlertDialog(
+                                                                      title: const Text(
+                                                                          'Info'),
+                                                                      content: const Text(
+                                                                          'No se elimino la categoria. Tienes productos asociados a ella'),
+                                                                      actions: [
+                                                                        TextButton(
+                                                                          onPressed: () =>
+                                                                              Navigator.pop(alertDialogContext),
+                                                                          child:
+                                                                              const Text('Ok'),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              );
+                                                            }
                                                           }
-                                                        }
 
-                                                        setState(() {});
-                                                      },
+                                                          setState(() {});
+                                                        },
+                                                      ),
                                                     ),
-                                                  ].divide(
-                                                      const SizedBox(width: 12.0)),
+                                                  ],
                                                 ),
                                               );
                                             },
