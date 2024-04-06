@@ -683,7 +683,7 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                                         padding:
                                                             const EdgeInsetsDirectional
                                                                 .fromSTEB(
-                                                                    8.0,
+                                                                    12.0,
                                                                     0.0,
                                                                     8.0,
                                                                     0.0),
@@ -735,7 +735,7 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primary,
-                                                          size: 24.0,
+                                                          size: 20.0,
                                                         ),
                                                         onPressed: () async {
                                                           await showModalBottomSheet(
@@ -799,7 +799,7 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .error,
-                                                          size: 24.0,
+                                                          size: 20.0,
                                                         ),
                                                         onPressed: () async {
                                                           var confirmDialogResponse =

@@ -24,6 +24,8 @@ class CreateCategoryComponentModel
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
+  // State field(s) for SwitchListTile widget.
+  bool? switchListTileValue;
 
   @override
   void initState(BuildContext context) {}

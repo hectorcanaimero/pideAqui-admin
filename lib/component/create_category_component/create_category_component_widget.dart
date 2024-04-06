@@ -342,6 +342,31 @@ class _CreateCategoryComponentWidgetState
                                   .asValidator(context),
                             ),
                           ),
+                          SwitchListTile.adaptive(
+                            value: _model.switchListTileValue ??=
+                                _model.categoryData!.status,
+                            onChanged: (newValue) async {
+                              setState(
+                                  () => _model.switchListTileValue = newValue);
+                            },
+                            title: Text(
+                              'Status',
+                              style: FlutterFlowTheme.of(context)
+                                  .titleLarge
+                                  .override(
+                                    fontFamily: 'Outfit',
+                                    fontSize: 18.0,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                            tileColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            activeColor: FlutterFlowTheme.of(context).primary,
+                            activeTrackColor:
+                                FlutterFlowTheme.of(context).accent1,
+                            dense: false,
+                            controlAffinity: ListTileControlAffinity.trailing,
+                          ),
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 24.0, 0.0, 24.0),
