@@ -169,13 +169,21 @@ class _CreateCategoryComponentWidgetState
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 18.0),
-                            child: Image.network(
-                              valueOrDefault<String>(
-                                _model.image,
-                                'https://gravatar.com/avatar/0361e40b90a43567c73a64c7db0e6ff4?s=400&d=robohash&r=x',
-                              ),
+                            child: Container(
                               width: 150.0,
-                              fit: BoxFit.cover,
+                              height: 150.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context).alternate,
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              child: Image.network(
+                                valueOrDefault<String>(
+                                  _model.image,
+                                  'https://placehold.co/300x300',
+                                ),
+                                width: 150.0,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                           Padding(

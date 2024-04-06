@@ -8,7 +8,7 @@ class CreateCategoryComponentModel
     extends FlutterFlowModel<CreateCategoryComponentWidget> {
   ///  Local state fields for this component.
 
-  String image = 'https://placehold.co/300x300';
+  String image = '';
 
   ///  State fields for stateful widgets in this component.
 
