@@ -238,37 +238,13 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                                   ProductsRecord>(
                                             // Customize what your widget looks like when it's loading the first page.
                                             firstPageProgressIndicatorBuilder:
-                                                (_) => Center(
-                                              child: SizedBox(
-                                                width: 50.0,
-                                                height: 50.0,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  valueColor:
-                                                      AlwaysStoppedAnimation<
-                                                          Color>(
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                  ),
-                                                ),
-                                              ),
+                                                (_) => const EmptyComponentWidget(
+                                              text: 'Sin Productos...',
                                             ),
                                             // Customize what your widget looks like when it's loading another page.
                                             newPageProgressIndicatorBuilder:
-                                                (_) => Center(
-                                              child: SizedBox(
-                                                width: 50.0,
-                                                height: 50.0,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  valueColor:
-                                                      AlwaysStoppedAnimation<
-                                                          Color>(
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                  ),
-                                                ),
-                                              ),
+                                                (_) => const EmptyComponentWidget(
+                                              text: 'Sin Productos...',
                                             ),
                                             noItemsFoundIndicatorBuilder: (_) =>
                                                 const EmptyComponentWidget(
@@ -648,37 +624,13 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                                   CategoriesRecord>(
                                             // Customize what your widget looks like when it's loading the first page.
                                             firstPageProgressIndicatorBuilder:
-                                                (_) => Center(
-                                              child: SizedBox(
-                                                width: 50.0,
-                                                height: 50.0,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  valueColor:
-                                                      AlwaysStoppedAnimation<
-                                                          Color>(
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                  ),
-                                                ),
-                                              ),
+                                                (_) => const EmptyComponentWidget(
+                                              text: 'Sin Categorias...',
                                             ),
                                             // Customize what your widget looks like when it's loading another page.
                                             newPageProgressIndicatorBuilder:
-                                                (_) => Center(
-                                              child: SizedBox(
-                                                width: 50.0,
-                                                height: 50.0,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  valueColor:
-                                                      AlwaysStoppedAnimation<
-                                                          Color>(
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                  ),
-                                                ),
-                                              ),
+                                                (_) => const EmptyComponentWidget(
+                                              text: 'Sin Categorias...',
                                             ),
                                             noItemsFoundIndicatorBuilder: (_) =>
                                                 const EmptyComponentWidget(

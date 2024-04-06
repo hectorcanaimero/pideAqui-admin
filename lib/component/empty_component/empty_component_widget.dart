@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'empty_component_model.dart';
 export 'empty_component_model.dart';
 
@@ -49,12 +48,13 @@ class _EmptyComponentWidgetState extends State<EmptyComponentWidget> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
-            child: FaIcon(
-              FontAwesomeIcons.bars,
-              color: FlutterFlowTheme.of(context).alternate,
-              size: 72.0,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: Image.asset(
+              'assets/images/papel_(1).png',
+              width: 72.0,
+              height: 72.0,
+              fit: BoxFit.contain,
             ),
           ),
           Text(
@@ -65,7 +65,7 @@ class _EmptyComponentWidgetState extends State<EmptyComponentWidget> {
                   letterSpacing: 0.0,
                 ),
           ),
-        ],
+        ].divide(const SizedBox(height: 18.0)),
       ),
     );
   }

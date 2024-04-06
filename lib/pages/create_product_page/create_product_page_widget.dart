@@ -342,7 +342,10 @@ class _CreateProductPageWidgetState extends State<CreateProductPageWidget>
                                           borderRadius:
                                               BorderRadius.circular(8.0),
                                           child: Image.network(
-                                            _model.image,
+                                            valueOrDefault<String>(
+                                              _model.image,
+                                              'https://placehold.co/600x300',
+                                            ),
                                             width: double.infinity,
                                             height: 250.0,
                                             fit: BoxFit.cover,

@@ -1,4 +1,5 @@
 import '/backend/backend.dart';
+import '/component/empty_component/empty_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:styled_divider/styled_divider.dart';
@@ -129,7 +130,10 @@ class _PedidosPageWidgetState extends State<PedidosPageWidget> {
                             ),
                           ),
                         ),
-
+                        noItemsFoundIndicatorBuilder: (_) =>
+                            const EmptyComponentWidget(
+                          text: 'Sin Pedidos...',
+                        ),
                         itemBuilder: (context, _, listViewIndex) {
                           final listViewOrdersRecord = _model
                               .listViewPagingController!
