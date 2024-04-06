@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class CreateProductPageModel extends FlutterFlowModel<CreateProductPageWidget> {
   ///  Local state fields for this page.
 
-  String image = 'https://placehold.co/600x300';
+  String image = '';
 
   DocumentReference? uidProduct;
 
