@@ -9,10 +9,6 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "user",
-          "order": "ASCENDING"
-        },
-        {
           "fieldPath": "cAt",
           "order": "DESCENDING"
         }

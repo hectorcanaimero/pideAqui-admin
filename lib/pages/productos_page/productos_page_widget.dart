@@ -1,4 +1,3 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/component/create_category_component/create_category_component_widget.dart';
 import '/component/empty_component/empty_component_widget.dart';
@@ -6,6 +5,7 @@ import '/flutter_flow/flutter_flow_button_tabbar.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:styled_divider/styled_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -212,18 +212,14 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                           pagingController:
                                               _model.setListViewController1(
                                             ProductsRecord.collection
-                                                .where(Filter.or(
-                                                  Filter(
-                                                    'companyRef',
-                                                    isEqualTo:
-                                                        FFAppState().companyRef,
-                                                  ),
-                                                  Filter(
-                                                    'user',
-                                                    isEqualTo:
-                                                        currentUserReference,
-                                                  ),
-                                                ))
+                                                .where(
+                                                  'companyRef',
+                                                  isEqualTo:
+                                                      functions.parseRefCompany(
+                                                          FFAppState()
+                                                              .companyRef!
+                                                              .id),
+                                                )
                                                 .orderBy('cAt',
                                                     descending: true),
                                           ),
@@ -585,15 +581,6 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                         ),
                                       ),
                                     ),
-                                    Text(
-                                      FFAppState().companyRef!.id,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            letterSpacing: 0.0,
-                                          ),
-                                    ),
                                     Expanded(
                                       child: Padding(
                                         padding: const EdgeInsetsDirectional.fromSTEB(
@@ -607,7 +594,10 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                                 .where(
                                                   'companyRef',
                                                   isEqualTo:
-                                                      FFAppState().companyRef,
+                                                      functions.parseRefCompany(
+                                                          FFAppState()
+                                                              .companyRef!
+                                                              .id),
                                                 )
                                                 .orderBy('cAt',
                                                     descending: true),

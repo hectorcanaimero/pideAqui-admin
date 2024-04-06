@@ -50,3 +50,9 @@ bool isSlug(String texto) {
 int parseInteger(String num) {
   return int.parse(num);
 }
+
+DocumentReference parseRefCompany(String uid) {
+  String ruta = '/companies/${uid}';
+  DocumentReference store = FirebaseFirestore.instance.doc(ruta);
+  return store;
+}
