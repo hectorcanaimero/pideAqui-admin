@@ -54,8 +54,6 @@ class _CreateCategoryComponentWidgetState
     _model.textController ??=
         TextEditingController(text: _model.categoryData?.name);
     _model.textFieldFocusNode ??= FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

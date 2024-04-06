@@ -24,8 +24,6 @@ class _PedidosPageWidgetState extends State<PedidosPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => PedidosPageModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

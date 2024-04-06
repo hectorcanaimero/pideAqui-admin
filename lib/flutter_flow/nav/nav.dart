@@ -377,18 +377,16 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? isWeb
-                  ? Container()
-                  : Container(
-                      color: FlutterFlowTheme.of(context).warning,
-                      child: Center(
-                        child: Image.asset(
-                          'assets/images/Ativo_1.png',
-                          width: MediaQuery.sizeOf(context).width * 0.6,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    )
+              ? Container(
+                  color: FlutterFlowTheme.of(context).warning,
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/Ativo_1.png',
+                      width: MediaQuery.sizeOf(context).width * 0.6,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )
               : page;
 
           final transitionInfo = state.transitionInfo;

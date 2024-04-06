@@ -22,8 +22,6 @@ class _UserPageWidgetState extends State<UserPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => UserPageModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

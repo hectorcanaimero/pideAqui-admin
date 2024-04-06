@@ -51,8 +51,6 @@ class _CreateUserPageWidgetState extends State<CreateUserPageWidget> {
 
     _model.passwordConfirmController ??= TextEditingController();
     _model.passwordConfirmFocusNode ??= FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

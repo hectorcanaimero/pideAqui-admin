@@ -25,8 +25,6 @@ class _DetailOrderPageWidgetState extends State<DetailOrderPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => DetailOrderPageModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

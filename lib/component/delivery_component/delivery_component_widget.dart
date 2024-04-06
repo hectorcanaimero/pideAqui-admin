@@ -46,8 +46,6 @@ class _DeliveryComponentWidgetState extends State<DeliveryComponentWidget> {
 
     _model.priceFieldController ??= TextEditingController();
     _model.priceFieldFocusNode ??= FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

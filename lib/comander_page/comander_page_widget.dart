@@ -20,8 +20,6 @@ class _ComanderPageWidgetState extends State<ComanderPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ComanderPageModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

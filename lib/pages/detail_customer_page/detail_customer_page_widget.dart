@@ -30,8 +30,6 @@ class _DetailCustomerPageWidgetState extends State<DetailCustomerPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => DetailCustomerPageModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
