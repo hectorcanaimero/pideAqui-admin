@@ -177,10 +177,7 @@ class _CreateCategoryComponentWidgetState
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               child: Image.network(
-                                valueOrDefault<String>(
-                                  _model.image,
-                                  'https://placehold.co/300x300',
-                                ),
+                                _model.image,
                                 width: 150.0,
                                 fit: BoxFit.cover,
                               ),
@@ -287,6 +284,7 @@ class _CreateCategoryComponentWidgetState
                               controller: _model.textController,
                               focusNode: _model.textFieldFocusNode,
                               autofocus: true,
+                              textCapitalization: TextCapitalization.words,
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelStyle: FlutterFlowTheme.of(context)

@@ -23,10 +23,6 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "user",
-          "order": "ASCENDING"
-        },
-        {
           "fieldPath": "companyRef",
           "order": "ASCENDING"
         },

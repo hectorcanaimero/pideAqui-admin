@@ -246,10 +246,7 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                                 (_) => const EmptyComponentWidget(
                                               text: 'Sin Productos...',
                                             ),
-                                            noItemsFoundIndicatorBuilder: (_) =>
-                                                const EmptyComponentWidget(
-                                              text: 'Sin Productos...',
-                                            ),
+
                                             itemBuilder:
                                                 (context, _, listViewIndex) {
                                               final listViewProductsRecord =
@@ -598,18 +595,11 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                           pagingController:
                                               _model.setListViewController2(
                                             CategoriesRecord.collection
-                                                .where(Filter.or(
-                                                  Filter(
-                                                    'user',
-                                                    isEqualTo:
-                                                        currentUserReference,
-                                                  ),
-                                                  Filter(
-                                                    'companyRef',
-                                                    isEqualTo:
-                                                        FFAppState().companyRef,
-                                                  ),
-                                                ))
+                                                .where(
+                                                  'companyRef',
+                                                  isEqualTo:
+                                                      FFAppState().companyRef,
+                                                )
                                                 .orderBy('cAt',
                                                     descending: true),
                                           ),
@@ -632,10 +622,7 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                                 (_) => const EmptyComponentWidget(
                                               text: 'Sin Categorias...',
                                             ),
-                                            noItemsFoundIndicatorBuilder: (_) =>
-                                                const EmptyComponentWidget(
-                                              text: 'Sin Categorias...',
-                                            ),
+
                                             itemBuilder:
                                                 (context, _, listViewIndex) {
                                               final listViewCategoriesRecord =
