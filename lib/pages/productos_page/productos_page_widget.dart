@@ -585,6 +585,15 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                         ),
                                       ),
                                     ),
+                                    Text(
+                                      FFAppState().companyRef!.id,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Readex Pro',
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
                                     Expanded(
                                       child: Padding(
                                         padding: const EdgeInsetsDirectional.fromSTEB(
