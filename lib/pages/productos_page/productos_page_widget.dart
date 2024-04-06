@@ -130,47 +130,136 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                         Expanded(
                           child: TabBarView(
                             controller: _model.tabBarController,
+                            physics: const NeverScrollableScrollPhysics(),
                             children: [
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        18.0, 12.0, 18.0, 18.0),
-                                    child: Container(
-                                      width: double.infinity,
-                                      decoration: const BoxDecoration(),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                'Lista de Productos',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmall
-                                                        .override(
-                                                          fontFamily: 'Outfit',
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                              ),
-                                              FlutterFlowIconButton(
-                                                borderRadius: 20.0,
-                                                borderWidth: 1.0,
-                                                buttonSize: 40.0,
-                                                icon: Icon(
-                                                  Icons.add,
-                                                  color: FlutterFlowTheme.of(
+                              KeepAliveWidgetWrapper(
+                                builder: (context) => Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          18.0, 12.0, 18.0, 18.0),
+                                      child: Container(
+                                        width: double.infinity,
+                                        decoration: const BoxDecoration(),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'Lista de Productos',
+                                                  style: FlutterFlowTheme.of(
                                                           context)
-                                                      .primaryText,
-                                                  size: 24.0,
+                                                      .headlineSmall
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        fontSize: 20.0,
+                                                        letterSpacing: 0.0,
+                                                      ),
                                                 ),
-                                                onPressed: () async {
+                                                FlutterFlowIconButton(
+                                                  borderRadius: 20.0,
+                                                  borderWidth: 1.0,
+                                                  buttonSize: 40.0,
+                                                  icon: Icon(
+                                                    Icons.add,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    size: 24.0,
+                                                  ),
+                                                  onPressed: () async {
+                                                    context.pushNamed(
+                                                      'CreateProductPage',
+                                                      extra: <String, dynamic>{
+                                                        kTransitionInfoKey:
+                                                            const TransitionInfo(
+                                                          hasTransition: true,
+                                                          transitionType:
+                                                              PageTransitionType
+                                                                  .bottomToTop,
+                                                        ),
+                                                      },
+                                                    );
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                            StyledDivider(
+                                              thickness: 1.5,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              lineStyle:
+                                                  DividerLineStyle.dashdotted,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            18.0, 0.0, 18.0, 0.0),
+                                        child: PagedListView<
+                                            DocumentSnapshot<Object?>?,
+                                            ProductsRecord>.separated(
+                                          pagingController:
+                                              _model.setListViewController1(
+                                            ProductsRecord.collection
+                                                .where(Filter.or(
+                                                  Filter(
+                                                    'companyRef',
+                                                    isEqualTo:
+                                                        FFAppState().companyRef,
+                                                  ),
+                                                  Filter(
+                                                    'user',
+                                                    isEqualTo:
+                                                        currentUserReference,
+                                                  ),
+                                                ))
+                                                .orderBy('cAt',
+                                                    descending: true),
+                                          ),
+                                          padding: EdgeInsets.zero,
+                                          primary: false,
+                                          reverse: false,
+                                          scrollDirection: Axis.vertical,
+                                          separatorBuilder: (_, __) =>
+                                              const SizedBox(height: 16.0),
+                                          builderDelegate:
+                                              PagedChildBuilderDelegate<
+                                                  ProductsRecord>(
+                                            // Customize what your widget looks like when it's loading the first page.
+                                            firstPageProgressIndicatorBuilder:
+                                                (_) => const EmptyComponentWidget(
+                                              text: 'Sin Productos',
+                                            ),
+                                            // Customize what your widget looks like when it's loading another page.
+                                            newPageProgressIndicatorBuilder:
+                                                (_) => const EmptyComponentWidget(
+                                              text: 'Sin Productos',
+                                            ),
+
+                                            itemBuilder:
+                                                (context, _, listViewIndex) {
+                                              final listViewProductsRecord =
+                                                  _model
+                                                      .listViewPagingController1!
+                                                      .itemList![listViewIndex];
+                                              return InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
                                                   context.pushNamed(
                                                     'CreateProductPage',
                                                     extra: <String, dynamic>{
@@ -184,640 +273,568 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                                     },
                                                   );
                                                 },
-                                              ),
-                                            ],
-                                          ),
-                                          StyledDivider(
-                                            thickness: 1.5,
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            lineStyle:
-                                                DividerLineStyle.dashdotted,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          18.0, 0.0, 18.0, 0.0),
-                                      child: PagedListView<
-                                          DocumentSnapshot<Object?>?,
-                                          ProductsRecord>.separated(
-                                        pagingController:
-                                            _model.setListViewController1(
-                                          ProductsRecord.collection
-                                              .where(Filter.or(
-                                                Filter(
-                                                  'companyRef',
-                                                  isEqualTo:
-                                                      FFAppState().companyRef,
-                                                ),
-                                                Filter(
-                                                  'user',
-                                                  isEqualTo:
-                                                      currentUserReference,
-                                                ),
-                                              ))
-                                              .orderBy('cAt', descending: true),
-                                        ),
-                                        padding: EdgeInsets.zero,
-                                        primary: false,
-                                        reverse: false,
-                                        scrollDirection: Axis.vertical,
-                                        separatorBuilder: (_, __) =>
-                                            const SizedBox(height: 16.0),
-                                        builderDelegate:
-                                            PagedChildBuilderDelegate<
-                                                ProductsRecord>(
-                                          // Customize what your widget looks like when it's loading the first page.
-                                          firstPageProgressIndicatorBuilder:
-                                              (_) => const EmptyComponentWidget(
-                                            text: 'Sin Productos',
-                                          ),
-                                          // Customize what your widget looks like when it's loading another page.
-                                          newPageProgressIndicatorBuilder:
-                                              (_) => const EmptyComponentWidget(
-                                            text: 'Sin Productos',
-                                          ),
-
-                                          itemBuilder:
-                                              (context, _, listViewIndex) {
-                                            final listViewProductsRecord =
-                                                _model
-                                                    .listViewPagingController1!
-                                                    .itemList![listViewIndex];
-                                            return InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                context.pushNamed(
-                                                  'CreateProductPage',
-                                                  extra: <String, dynamic>{
-                                                    kTransitionInfoKey:
-                                                        const TransitionInfo(
-                                                      hasTransition: true,
-                                                      transitionType:
-                                                          PageTransitionType
-                                                              .bottomToTop,
-                                                    ),
-                                                  },
-                                                );
-                                              },
-                                              child: Stack(
-                                                children: [
-                                                  Container(
-                                                    width: double.infinity,
-                                                    decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondaryBackground,
-                                                      boxShadow: const [
-                                                        BoxShadow(
-                                                          blurRadius: 4.0,
-                                                          color:
-                                                              Color(0x33000000),
-                                                          offset: Offset(
-                                                            0.0,
-                                                            2.0,
-                                                          ),
-                                                        )
-                                                      ],
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                    ),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                          child: Image.network(
-                                                            listViewProductsRecord
-                                                                .image,
-                                                            width: 80.0,
-                                                            height: 80.0,
-                                                            fit: BoxFit.cover,
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                'Hamburguesas',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Readex Pro',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryText,
-                                                                      fontSize:
-                                                                          13.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                    ),
-                                                              ),
-                                                              Text(
-                                                                listViewProductsRecord
-                                                                    .name,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Readex Pro',
-                                                                      fontSize:
-                                                                          16.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                    ),
-                                                              ),
-                                                              Text(
-                                                                formatNumber(
-                                                                  listViewProductsRecord
-                                                                      .price,
-                                                                  formatType:
-                                                                      FormatType
-                                                                          .decimal,
-                                                                  decimalType:
-                                                                      DecimalType
-                                                                          .automatic,
-                                                                  currency:
-                                                                      '\$',
-                                                                ),
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Readex Pro',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .error,
-                                                                      fontSize:
-                                                                          16.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                    ),
-                                                              ),
-                                                            ].divide(const SizedBox(
-                                                                height: 4.0)),
-                                                          ),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      10.0,
-                                                                      10.0,
-                                                                      0.0),
-                                                          child:
-                                                              FlutterFlowIconButton(
-                                                            borderRadius: 20.0,
-                                                            borderWidth: 1.0,
-                                                            buttonSize: 30.0,
-                                                            icon: FaIcon(
-                                                              FontAwesomeIcons
-                                                                  .trashAlt,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .error,
-                                                              size: 18.0,
+                                                child: Stack(
+                                                  children: [
+                                                    Container(
+                                                      width: double.infinity,
+                                                      decoration: BoxDecoration(
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .secondaryBackground,
+                                                        boxShadow: const [
+                                                          BoxShadow(
+                                                            blurRadius: 4.0,
+                                                            color: Color(
+                                                                0x33000000),
+                                                            offset: Offset(
+                                                              0.0,
+                                                              2.0,
                                                             ),
-                                                            onPressed: () {
-                                                              print(
-                                                                  'IconButton pressed ...');
-                                                            },
+                                                          )
+                                                        ],
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                            child:
+                                                                Image.network(
+                                                              listViewProductsRecord
+                                                                  .image,
+                                                              width: 80.0,
+                                                              height: 80.0,
+                                                              fit: BoxFit.cover,
+                                                            ),
                                                           ),
-                                                        ),
-                                                      ].divide(const SizedBox(
-                                                          width: 12.0)),
-                                                    ),
-                                                  ),
-                                                  if (listViewProductsRecord
-                                                      .status)
-                                                    Align(
-                                                      alignment:
-                                                          const AlignmentDirectional(
-                                                              1.0, 0.0),
-                                                      child: Container(
-                                                        width: 100.0,
-                                                        decoration:
-                                                            const BoxDecoration(
-                                                          color:
-                                                              Color(0xFFD6000E),
-                                                          borderRadius:
-                                                              BorderRadius.only(
-                                                            bottomLeft:
-                                                                Radius.circular(
-                                                                    8.0),
-                                                            bottomRight:
-                                                                Radius.circular(
-                                                                    0.0),
-                                                            topLeft:
-                                                                Radius.circular(
-                                                                    0.0),
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    8.0),
+                                                          Expanded(
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  'Hamburguesas',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Readex Pro',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryText,
+                                                                        fontSize:
+                                                                            13.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                      ),
+                                                                ),
+                                                                Text(
+                                                                  listViewProductsRecord
+                                                                      .name,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Readex Pro',
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                      ),
+                                                                ),
+                                                                Text(
+                                                                  formatNumber(
+                                                                    listViewProductsRecord
+                                                                        .price,
+                                                                    formatType:
+                                                                        FormatType
+                                                                            .decimal,
+                                                                    decimalType:
+                                                                        DecimalType
+                                                                            .automatic,
+                                                                    currency:
+                                                                        '\$',
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Readex Pro',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .error,
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                      ),
+                                                                ),
+                                                              ].divide(const SizedBox(
+                                                                  height: 4.0)),
+                                                            ),
                                                           ),
-                                                        ),
-                                                        child: Align(
-                                                          alignment:
-                                                              const AlignmentDirectional(
-                                                                  0.0, 0.0),
-                                                          child: Padding(
+                                                          Padding(
                                                             padding:
                                                                 const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
-                                                                        3.0,
-                                                                        0.0,
-                                                                        3.0),
-                                                            child: Text(
-                                                              'No disponible',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Readex Pro',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryBackground,
-                                                                    fontSize:
-                                                                        12.0,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                  ),
+                                                                        10.0,
+                                                                        10.0,
+                                                                        0.0),
+                                                            child:
+                                                                FlutterFlowIconButton(
+                                                              borderRadius:
+                                                                  20.0,
+                                                              borderWidth: 1.0,
+                                                              buttonSize: 30.0,
+                                                              icon: FaIcon(
+                                                                FontAwesomeIcons
+                                                                    .trashAlt,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .error,
+                                                                size: 18.0,
+                                                              ),
+                                                              onPressed: () {
+                                                                print(
+                                                                    'IconButton pressed ...');
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ].divide(const SizedBox(
+                                                            width: 12.0)),
+                                                      ),
+                                                    ),
+                                                    if (listViewProductsRecord
+                                                        .status)
+                                                      Align(
+                                                        alignment:
+                                                            const AlignmentDirectional(
+                                                                1.0, 0.0),
+                                                        child: Container(
+                                                          width: 100.0,
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                            color: Color(
+                                                                0xFFD6000E),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .only(
+                                                              bottomLeft: Radius
+                                                                  .circular(
+                                                                      8.0),
+                                                              bottomRight:
+                                                                  Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                      0.0),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      8.0),
+                                                            ),
+                                                          ),
+                                                          child: Align(
+                                                            alignment:
+                                                                const AlignmentDirectional(
+                                                                    0.0, 0.0),
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          3.0,
+                                                                          0.0,
+                                                                          3.0),
+                                                              child: Text(
+                                                                'No disponible',
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Readex Pro',
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryBackground,
+                                                                      fontSize:
+                                                                          12.0,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                    ),
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                ],
-                                              ),
-                                            );
-                                          },
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        18.0, 12.0, 18.0, 18.0),
-                                    child: Container(
-                                      width: double.infinity,
-                                      decoration: const BoxDecoration(),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                'Lista de Categorias',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmall
-                                                        .override(
-                                                          fontFamily: 'Outfit',
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                              ),
-                                              FlutterFlowIconButton(
-                                                borderRadius: 20.0,
-                                                borderWidth: 1.0,
-                                                buttonSize: 40.0,
-                                                icon: Icon(
-                                                  Icons.add,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                  size: 24.0,
-                                                ),
-                                                onPressed: () async {
-                                                  await showModalBottomSheet(
-                                                    isScrollControlled: true,
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    enableDrag: false,
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return WebViewAware(
-                                                        child: GestureDetector(
-                                                          onTap: () => _model
-                                                                  .unfocusNode
-                                                                  .canRequestFocus
-                                                              ? FocusScope.of(
-                                                                      context)
-                                                                  .requestFocus(
-                                                                      _model
-                                                                          .unfocusNode)
-                                                              : FocusScope.of(
-                                                                      context)
-                                                                  .unfocus(),
-                                                          child: Padding(
-                                                            padding: MediaQuery
-                                                                .viewInsetsOf(
-                                                                    context),
-                                                            child:
-                                                                const CreateCategoryComponentWidget(),
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                  ).then((value) =>
-                                                      safeSetState(() {}));
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                          StyledDivider(
-                                            thickness: 1.5,
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            lineStyle:
-                                                DividerLineStyle.dashdotted,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
+                              KeepAliveWidgetWrapper(
+                                builder: (context) => Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
-                                          18.0, 0.0, 18.0, 0.0),
-                                      child: PagedListView<
-                                          DocumentSnapshot<Object?>?,
-                                          CategoriesRecord>.separated(
-                                        pagingController:
-                                            _model.setListViewController2(
-                                          CategoriesRecord.collection
-                                              .where(Filter.or(
-                                                Filter(
-                                                  'user',
-                                                  isEqualTo:
-                                                      currentUserReference,
+                                          18.0, 12.0, 18.0, 18.0),
+                                      child: Container(
+                                        width: double.infinity,
+                                        decoration: const BoxDecoration(),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'Lista de Categorias',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .headlineSmall
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        fontSize: 20.0,
+                                                        letterSpacing: 0.0,
+                                                      ),
                                                 ),
-                                                Filter(
-                                                  'companyRef',
-                                                  isEqualTo:
-                                                      FFAppState().companyRef,
-                                                ),
-                                              ))
-                                              .orderBy('cAt', descending: true),
-                                        ),
-                                        padding: EdgeInsets.zero,
-                                        primary: false,
-                                        reverse: false,
-                                        scrollDirection: Axis.vertical,
-                                        separatorBuilder: (_, __) =>
-                                            const SizedBox(height: 16.0),
-                                        builderDelegate:
-                                            PagedChildBuilderDelegate<
-                                                CategoriesRecord>(
-                                          // Customize what your widget looks like when it's loading the first page.
-                                          firstPageProgressIndicatorBuilder:
-                                              (_) => const EmptyComponentWidget(
-                                            text: 'Sin Categorias',
-                                          ),
-                                          // Customize what your widget looks like when it's loading another page.
-                                          newPageProgressIndicatorBuilder:
-                                              (_) => const EmptyComponentWidget(
-                                            text: 'Sin Categorias',
-                                          ),
-
-                                          itemBuilder:
-                                              (context, _, listViewIndex) {
-                                            final listViewCategoriesRecord =
-                                                _model
-                                                    .listViewPagingController2!
-                                                    .itemList![listViewIndex];
-                                            return Container(
-                                              width: double.infinity,
-                                              height: 55.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                boxShadow: const [
-                                                  BoxShadow(
-                                                    blurRadius: 4.0,
-                                                    color: Color(0x33000000),
-                                                    offset: Offset(
-                                                      0.0,
-                                                      2.0,
-                                                    ),
-                                                  )
-                                                ],
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
-                                                    child: Image.network(
-                                                      listViewCategoriesRecord
-                                                          .image,
-                                                      width: 50.0,
-                                                      height: 50.0,
-                                                      fit: BoxFit.cover,
-                                                    ),
+                                                FlutterFlowIconButton(
+                                                  borderRadius: 20.0,
+                                                  borderWidth: 1.0,
+                                                  buttonSize: 40.0,
+                                                  icon: Icon(
+                                                    Icons.add,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    size: 24.0,
                                                   ),
-                                                  Expanded(
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          listViewCategoriesRecord
-                                                              .name,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Readex Pro',
-                                                                fontSize: 16.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                              ),
-                                                        ),
-                                                      ].divide(const SizedBox(
-                                                          height: 4.0)),
-                                                    ),
-                                                  ),
-                                                  FlutterFlowIconButton(
-                                                    borderRadius: 20.0,
-                                                    borderWidth: 1.0,
-                                                    buttonSize: 40.0,
-                                                    icon: FaIcon(
-                                                      FontAwesomeIcons.trashAlt,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .error,
-                                                      size: 24.0,
-                                                    ),
-                                                    onPressed: () async {
-                                                      var confirmDialogResponse =
-                                                          await showDialog<
-                                                                  bool>(
-                                                                context:
-                                                                    context,
-                                                                builder:
-                                                                    (alertDialogContext) {
-                                                                  return WebViewAware(
-                                                                    child:
-                                                                        AlertDialog(
-                                                                      title: const Text(
-                                                                          'Info'),
-                                                                      content: const Text(
-                                                                          'Vas a eliminar esta categoria?'),
-                                                                      actions: [
-                                                                        TextButton(
-                                                                          onPressed: () => Navigator.pop(
-                                                                              alertDialogContext,
-                                                                              false),
-                                                                          child:
-                                                                              const Text('No'),
-                                                                        ),
-                                                                        TextButton(
-                                                                          onPressed: () => Navigator.pop(
-                                                                              alertDialogContext,
-                                                                              true),
-                                                                          child:
-                                                                              const Text('Si'),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  );
-                                                                },
-                                                              ) ??
-                                                              false;
-                                                      if (confirmDialogResponse) {
-                                                        _model.haveProduct =
-                                                            await queryProductsRecordCount(
-                                                          queryBuilder:
-                                                              (productsRecord) =>
-                                                                  productsRecord
-                                                                      .where(
-                                                            'category',
-                                                            isEqualTo:
-                                                                listViewCategoriesRecord
-                                                                    .reference,
+                                                  onPressed: () async {
+                                                    await showModalBottomSheet(
+                                                      isScrollControlled: true,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      enableDrag: false,
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return WebViewAware(
+                                                          child:
+                                                              GestureDetector(
+                                                            onTap: () => _model
+                                                                    .unfocusNode
+                                                                    .canRequestFocus
+                                                                ? FocusScope.of(
+                                                                        context)
+                                                                    .requestFocus(
+                                                                        _model
+                                                                            .unfocusNode)
+                                                                : FocusScope.of(
+                                                                        context)
+                                                                    .unfocus(),
+                                                            child: Padding(
+                                                              padding: MediaQuery
+                                                                  .viewInsetsOf(
+                                                                      context),
+                                                              child:
+                                                                  const CreateCategoryComponentWidget(),
+                                                            ),
                                                           ),
                                                         );
-                                                        if (_model
-                                                                .haveProduct ==
-                                                            0) {
-                                                          await listViewCategoriesRecord
-                                                              .reference
-                                                              .delete();
-                                                          ScaffoldMessenger.of(
-                                                                  context)
-                                                              .showSnackBar(
-                                                            SnackBar(
-                                                              content: Text(
-                                                                'Se Elimino la categoria!',
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                ),
-                                                              ),
-                                                              duration: const Duration(
-                                                                  milliseconds:
-                                                                      4000),
-                                                              backgroundColor:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondary,
-                                                            ),
-                                                          );
-                                                        } else {
-                                                          await showDialog(
-                                                            context: context,
-                                                            builder:
-                                                                (alertDialogContext) {
-                                                              return WebViewAware(
-                                                                child:
-                                                                    AlertDialog(
-                                                                  title: const Text(
-                                                                      'Info'),
-                                                                  content: const Text(
-                                                                      'No se elimino la categoria. Tienes productos asociados a ella'),
-                                                                  actions: [
-                                                                    TextButton(
-                                                                      onPressed:
-                                                                          () =>
-                                                                              Navigator.pop(alertDialogContext),
-                                                                      child: const Text(
-                                                                          'Ok'),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              );
-                                                            },
-                                                          );
-                                                        }
-                                                      }
-
-                                                      setState(() {});
-                                                    },
-                                                  ),
-                                                ].divide(const SizedBox(width: 12.0)),
-                                              ),
-                                            );
-                                          },
+                                                      },
+                                                    ).then((value) =>
+                                                        safeSetState(() {}));
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                            StyledDivider(
+                                              thickness: 1.5,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              lineStyle:
+                                                  DividerLineStyle.dashdotted,
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            18.0, 0.0, 18.0, 0.0),
+                                        child: PagedListView<
+                                            DocumentSnapshot<Object?>?,
+                                            CategoriesRecord>.separated(
+                                          pagingController:
+                                              _model.setListViewController2(
+                                            CategoriesRecord.collection
+                                                .where(Filter.or(
+                                                  Filter(
+                                                    'user',
+                                                    isEqualTo:
+                                                        currentUserReference,
+                                                  ),
+                                                  Filter(
+                                                    'companyRef',
+                                                    isEqualTo:
+                                                        FFAppState().companyRef,
+                                                  ),
+                                                ))
+                                                .orderBy('cAt',
+                                                    descending: true),
+                                          ),
+                                          padding: EdgeInsets.zero,
+                                          primary: false,
+                                          reverse: false,
+                                          scrollDirection: Axis.vertical,
+                                          separatorBuilder: (_, __) =>
+                                              const SizedBox(height: 16.0),
+                                          builderDelegate:
+                                              PagedChildBuilderDelegate<
+                                                  CategoriesRecord>(
+                                            // Customize what your widget looks like when it's loading the first page.
+                                            firstPageProgressIndicatorBuilder:
+                                                (_) => const EmptyComponentWidget(
+                                              text: 'Sin Categorias',
+                                            ),
+                                            // Customize what your widget looks like when it's loading another page.
+                                            newPageProgressIndicatorBuilder:
+                                                (_) => const EmptyComponentWidget(
+                                              text: 'Sin Categorias',
+                                            ),
+
+                                            itemBuilder:
+                                                (context, _, listViewIndex) {
+                                              final listViewCategoriesRecord =
+                                                  _model
+                                                      .listViewPagingController2!
+                                                      .itemList![listViewIndex];
+                                              return Container(
+                                                width: double.infinity,
+                                                height: 55.0,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
+                                                  boxShadow: const [
+                                                    BoxShadow(
+                                                      blurRadius: 4.0,
+                                                      color: Color(0x33000000),
+                                                      offset: Offset(
+                                                        0.0,
+                                                        2.0,
+                                                      ),
+                                                    )
+                                                  ],
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.0),
+                                                      child: Image.network(
+                                                        listViewCategoriesRecord
+                                                            .image,
+                                                        width: 50.0,
+                                                        height: 50.0,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            listViewCategoriesRecord
+                                                                .name,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Readex Pro',
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                          ),
+                                                        ].divide(const SizedBox(
+                                                            height: 4.0)),
+                                                      ),
+                                                    ),
+                                                    FlutterFlowIconButton(
+                                                      borderRadius: 20.0,
+                                                      borderWidth: 1.0,
+                                                      buttonSize: 40.0,
+                                                      icon: FaIcon(
+                                                        FontAwesomeIcons
+                                                            .trashAlt,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .error,
+                                                        size: 24.0,
+                                                      ),
+                                                      onPressed: () async {
+                                                        var confirmDialogResponse =
+                                                            await showDialog<
+                                                                    bool>(
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (alertDialogContext) {
+                                                                    return WebViewAware(
+                                                                      child:
+                                                                          AlertDialog(
+                                                                        title: const Text(
+                                                                            'Info'),
+                                                                        content:
+                                                                            const Text('Vas a eliminar esta categoria?'),
+                                                                        actions: [
+                                                                          TextButton(
+                                                                            onPressed: () =>
+                                                                                Navigator.pop(alertDialogContext, false),
+                                                                            child:
+                                                                                const Text('No'),
+                                                                          ),
+                                                                          TextButton(
+                                                                            onPressed: () =>
+                                                                                Navigator.pop(alertDialogContext, true),
+                                                                            child:
+                                                                                const Text('Si'),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                ) ??
+                                                                false;
+                                                        if (confirmDialogResponse) {
+                                                          _model.haveProduct =
+                                                              await queryProductsRecordCount(
+                                                            queryBuilder:
+                                                                (productsRecord) =>
+                                                                    productsRecord
+                                                                        .where(
+                                                              'category',
+                                                              isEqualTo:
+                                                                  listViewCategoriesRecord
+                                                                      .reference,
+                                                            ),
+                                                          );
+                                                          if (_model
+                                                                  .haveProduct ==
+                                                              0) {
+                                                            await listViewCategoriesRecord
+                                                                .reference
+                                                                .delete();
+                                                            ScaffoldMessenger
+                                                                    .of(context)
+                                                                .showSnackBar(
+                                                              SnackBar(
+                                                                content: Text(
+                                                                  'Se Elimino la categoria!',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                  ),
+                                                                ),
+                                                                duration: const Duration(
+                                                                    milliseconds:
+                                                                        4000),
+                                                                backgroundColor:
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondary,
+                                                              ),
+                                                            );
+                                                          } else {
+                                                            await showDialog(
+                                                              context: context,
+                                                              builder:
+                                                                  (alertDialogContext) {
+                                                                return WebViewAware(
+                                                                  child:
+                                                                      AlertDialog(
+                                                                    title: const Text(
+                                                                        'Info'),
+                                                                    content: const Text(
+                                                                        'No se elimino la categoria. Tienes productos asociados a ella'),
+                                                                    actions: [
+                                                                      TextButton(
+                                                                        onPressed:
+                                                                            () =>
+                                                                                Navigator.pop(alertDialogContext),
+                                                                        child: const Text(
+                                                                            'Ok'),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                );
+                                                              },
+                                                            );
+                                                          }
+                                                        }
+
+                                                        setState(() {});
+                                                      },
+                                                    ),
+                                                  ].divide(
+                                                      const SizedBox(width: 12.0)),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
