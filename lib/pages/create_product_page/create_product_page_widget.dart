@@ -261,7 +261,7 @@ class _CreateProductPageWidgetState extends State<CreateProductPageWidget>
                                           controller:
                                               _model.nameFieldController,
                                           focusNode: _model.nameFieldFocusNode,
-                                          autofocus: true,
+                                          autofocus: false,
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             isDense: true,
@@ -471,7 +471,7 @@ class _CreateProductPageWidgetState extends State<CreateProductPageWidget>
                                               _model.descriptionFieldController,
                                           focusNode:
                                               _model.descriptionFieldFocusNode,
-                                          autofocus: true,
+                                          autofocus: false,
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             isDense: true,
@@ -662,7 +662,7 @@ class _CreateProductPageWidgetState extends State<CreateProductPageWidget>
                                                       _model.textController3,
                                                   focusNode:
                                                       _model.textFieldFocusNode,
-                                                  autofocus: true,
+                                                  autofocus: false,
                                                   obscureText: false,
                                                   decoration: InputDecoration(
                                                     labelStyle: FlutterFlowTheme
@@ -798,7 +798,7 @@ class _CreateProductPageWidgetState extends State<CreateProductPageWidget>
                                                       _model.minFieldController,
                                                   focusNode:
                                                       _model.minFieldFocusNode,
-                                                  autofocus: true,
+                                                  autofocus: false,
                                                   obscureText: false,
                                                   decoration: InputDecoration(
                                                     isDense: true,
@@ -903,7 +903,7 @@ class _CreateProductPageWidgetState extends State<CreateProductPageWidget>
                                                       _model.maxFieldController,
                                                   focusNode:
                                                       _model.maxFieldFocusNode,
-                                                  autofocus: true,
+                                                  autofocus: false,
                                                   obscureText: false,
                                                   decoration: InputDecoration(
                                                     isDense: true,
