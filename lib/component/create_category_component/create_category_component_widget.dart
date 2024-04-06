@@ -167,20 +167,13 @@ class _CreateCategoryComponentWidgetState
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 18.0),
-                          child: Container(
-                            width: 100.0,
-                            height: 100.0,
-                            clipBehavior: Clip.antiAlias,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
+                          child: Image.network(
+                            valueOrDefault<String>(
+                              _model.image,
+                              'https://gravatar.com/avatar/0361e40b90a43567c73a64c7db0e6ff4?s=400&d=robohash&r=x',
                             ),
-                            child: Image.network(
-                              valueOrDefault<String>(
-                                _model.image,
-                                'https://gravatar.com/avatar/0361e40b90a43567c73a64c7db0e6ff4?s=400&d=robohash&r=x',
-                              ),
-                              fit: BoxFit.cover,
-                            ),
+                            width: 150.0,
+                            fit: BoxFit.cover,
                           ),
                         ),
                         Padding(
@@ -245,7 +238,11 @@ class _CreateCategoryComponentWidgetState
                                 _model.image = _model.uploadedFileUrl;
                               });
                             },
-                            text: 'Seleccionar',
+                            text: 'Subir',
+                            icon: const Icon(
+                              Icons.upload,
+                              size: 15.0,
+                            ),
                             options: FFButtonOptions(
                               height: 40.0,
                               padding: const EdgeInsetsDirectional.fromSTEB(

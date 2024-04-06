@@ -120,22 +120,18 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         ),
                         Align(
                           alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 24.0),
-                            child: Text(
-                              'Cero Taxa y Cero Comisión...',
-                              style: FlutterFlowTheme.of(context)
-                                  .headlineSmall
-                                  .override(
-                                    fontFamily: 'Nunito',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
-                                    fontSize: 22.0,
-                                    letterSpacing: 0.0,
-                                    fontStyle: FontStyle.italic,
-                                  ),
-                            ),
+                          child: Text(
+                            'Cero Taxa y Cero Comisión...',
+                            style: FlutterFlowTheme.of(context)
+                                .headlineSmall
+                                .override(
+                                  fontFamily: 'Nunito',
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                  fontSize: 22.0,
+                                  letterSpacing: 0.0,
+                                  fontStyle: FontStyle.italic,
+                                ),
                           ),
                         ),
                         Align(
@@ -203,7 +199,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                         ),
                                         filled: true,
                                         fillColor: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
+                                            .outlineBackground,
                                       ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -309,7 +305,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 16.0, 0.0, 16.0),
+                                      0.0, 0.0, 0.0, 16.0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
                                       GoRouter.of(context).prepareAuthEvent();
@@ -415,6 +411,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .warning,
+                                                    fontSize: 16.0,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w600,
                                                   ),
@@ -424,6 +421,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                               .bodyMedium
                                               .override(
                                                 fontFamily: 'Readex Pro',
+                                                fontSize: 16.0,
                                                 letterSpacing: 0.0,
                                               ),
                                         ),
@@ -435,7 +433,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   alignment: const AlignmentDirectional(0.0, 0.0),
                                   child: Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 48.0, 0.0, 0.0),
+                                        0.0, 36.0, 0.0, 0.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
                                         context.pushNamed(
