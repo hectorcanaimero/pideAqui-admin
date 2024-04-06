@@ -173,13 +173,20 @@ class _CreateCategoryComponentWidgetState
                               width: 150.0,
                               height: 150.0,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).alternate,
+                                color: FlutterFlowTheme.of(context)
+                                    .primaryBackground,
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               child: Image.network(
                                 _model.image,
                                 width: 150.0,
                                 fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    Image.asset(
+                                  'assets/images/error_image.png',
+                                  width: 150.0,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),

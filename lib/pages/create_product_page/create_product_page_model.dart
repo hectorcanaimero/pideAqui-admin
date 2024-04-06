@@ -26,11 +26,6 @@ class CreateProductPageModel extends FlutterFlowModel<CreateProductPageWidget> {
   FocusNode? nameFieldFocusNode;
   TextEditingController? nameFieldController;
   String? Function(BuildContext, String?)? nameFieldControllerValidator;
-  bool isDataUploading = false;
-  FFUploadedFile uploadedLocalFile =
-      FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl = '';
-
   // State field(s) for DescriptionField widget.
   FocusNode? descriptionFieldFocusNode;
   TextEditingController? descriptionFieldController;
@@ -42,6 +37,11 @@ class CreateProductPageModel extends FlutterFlowModel<CreateProductPageWidget> {
   FocusNode? textFieldFocusNode;
   TextEditingController? textController3;
   String? Function(BuildContext, String?)? textController3Validator;
+  bool isDataUploading = false;
+  FFUploadedFile uploadedLocalFile =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl = '';
+
   // State field(s) for ExtrasSwitch widget.
   bool? extrasSwitchValue;
   // State field(s) for MinField widget.
