@@ -1,5 +1,6 @@
 import '/backend/backend.dart';
 import '/component/create_category_component/create_category_component_widget.dart';
+import '/component/editar_category_component/editar_category_component_widget.dart';
 import '/component/empty_component/empty_component_widget.dart';
 import '/flutter_flow/flutter_flow_button_tabbar.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -52,6 +53,7 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
       length: 2,
       initialIndex: 0,
     )..addListener(() => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -201,18 +203,6 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                           ],
                                         ),
                                       ),
-                                    ),
-                                    Text(
-                                      functions
-                                          .parseRefCompany(
-                                              FFAppState().companyRef!.id)
-                                          .id,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            letterSpacing: 0.0,
-                                          ),
                                     ),
                                     Expanded(
                                       child: Padding(
@@ -610,8 +600,7 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                                               .companyRef!
                                                               .id),
                                                 )
-                                                .orderBy('cAt',
-                                                    descending: true),
+                                                .orderBy('order'),
                                           ),
                                           padding: EdgeInsets.zero,
                                           primary: false,
@@ -766,7 +755,7 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                                                         .viewInsetsOf(
                                                                             context),
                                                                     child:
-                                                                        CreateCategoryComponentWidget(
+                                                                        EditarCategoryComponentWidget(
                                                                       uid: listViewCategoriesRecord
                                                                           .reference,
                                                                     ),

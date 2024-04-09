@@ -2,6 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -58,6 +59,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         }),
       ]);
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -239,60 +242,104 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 ),
                               ),
                               Expanded(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Align(
-                                      alignment: const AlignmentDirectional(1.0, 0.0),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 8.0),
-                                        child: Text(
-                                          'Hoy',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Readex Pro',
-                                                fontSize: 16.0,
-                                                letterSpacing: 0.0,
-                                              ),
-                                        ),
+                                child: FutureBuilder<int>(
+                                  future: queryOrdersRecordCount(
+                                    queryBuilder: (ordersRecord) =>
+                                        ordersRecord.where(Filter.or(
+                                      Filter(
+                                        'company',
+                                        isEqualTo: functions.parseRefCompany(
+                                            FFAppState().companyRef!.id),
                                       ),
-                                    ),
-                                    Align(
-                                      alignment: const AlignmentDirectional(1.0, 0.0),
-                                      child: Container(
-                                        width: 60.0,
-                                        height: 20.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
+                                      Filter(
+                                        'cAt',
+                                        isEqualTo: getCurrentTimestamp,
                                       ),
-                                    ),
-                                    Align(
-                                      alignment: const AlignmentDirectional(1.0, 0.0),
-                                      child: Text(
-                                        '100',
-                                        textAlign: TextAlign.end,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Readex Pro',
+                                    )),
+                                  ),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50.0,
+                                          height: 50.0,
+                                          child: CircularProgressIndicator(
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    int columnCount = snapshot.data!;
+                                    return Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Align(
+                                          alignment:
+                                              const AlignmentDirectional(1.0, 0.0),
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 8.0),
+                                            child: Text(
+                                              'Hoy',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        fontSize: 16.0,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                            ),
+                                          ),
+                                        ),
+                                        Align(
+                                          alignment:
+                                              const AlignmentDirectional(1.0, 0.0),
+                                          child: Container(
+                                            width: 60.0,
+                                            height: 20.0,
+                                            decoration: BoxDecoration(
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              fontSize: 36.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w600,
+                                                      .primary,
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
                                             ),
-                                      ),
-                                    ),
-                                  ],
+                                          ),
+                                        ),
+                                        Align(
+                                          alignment:
+                                              const AlignmentDirectional(1.0, 0.0),
+                                          child: Text(
+                                            columnCount.toString(),
+                                            textAlign: TextAlign.end,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  fontSize: 36.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
                                 ),
                               ),
                             ].divide(const SizedBox(width: 10.0)),

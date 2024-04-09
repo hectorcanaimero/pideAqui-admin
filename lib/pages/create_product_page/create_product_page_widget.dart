@@ -63,6 +63,8 @@ class _CreateProductPageWidgetState extends State<CreateProductPageWidget>
 
     _model.priceFieldController ??= TextEditingController();
     _model.priceFieldFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -640,7 +642,7 @@ class _CreateProductPageWidgetState extends State<CreateProductPageWidget>
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryBackground,
                                             image: DecorationImage(
-                                              fit: BoxFit.cover,
+                                              fit: BoxFit.fitHeight,
                                               image: CachedNetworkImageProvider(
                                                 _model.image,
                                               ),

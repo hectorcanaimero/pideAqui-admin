@@ -191,6 +191,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'CreateCompanyPage',
           path: '/createCompanyPage',
           builder: (context, params) => const CreateCompanyPageWidget(),
+        ),
+        FFRoute(
+          name: 'EditarProductPage',
+          path: '/editarProductPage',
+          builder: (context, params) => EditarProductPageWidget(
+            uid: params.getParam(
+              'uid',
+              ParamType.DocumentReference,
+              false,
+              ['products'],
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -377,16 +389,18 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Container(
-                  color: FlutterFlowTheme.of(context).warning,
-                  child: Center(
-                    child: Image.asset(
-                      'assets/images/Ativo_1.png',
-                      width: MediaQuery.sizeOf(context).width * 0.6,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                )
+              ? isWeb
+                  ? Container()
+                  : Container(
+                      color: FlutterFlowTheme.of(context).warning,
+                      child: Center(
+                        child: Image.asset(
+                          'assets/images/Ativo_1.png',
+                          width: MediaQuery.sizeOf(context).width * 0.6,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    )
               : page;
 
           final transitionInfo = state.transitionInfo;

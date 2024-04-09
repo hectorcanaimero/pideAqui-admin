@@ -71,6 +71,12 @@ class FFAppState extends ChangeNotifier {
     updateFn(_userPlan);
     prefs.setString('ff_userPlan', _userPlan.serialize());
   }
+
+  DocumentReference? _categoryRef;
+  DocumentReference? get categoryRef => _categoryRef;
+  set categoryRef(DocumentReference? value) {
+    _categoryRef = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

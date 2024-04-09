@@ -7,18 +7,13 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'create_category_component_model.dart';
 export 'create_category_component_model.dart';
 
 class CreateCategoryComponentWidget extends StatefulWidget {
-  const CreateCategoryComponentWidget({
-    super.key,
-    this.uid,
-  });
-
-  final DocumentReference? uid;
+  const CreateCategoryComponentWidget({super.key});
 
   @override
   State<CreateCategoryComponentWidget> createState() =>
@@ -40,20 +35,13 @@ class _CreateCategoryComponentWidgetState
     super.initState();
     _model = createModel(context, () => CreateCategoryComponentModel());
 
-    // On component load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (widget.uid != null) {
-        _model.categoryData =
-            await CategoriesRecord.getDocumentOnce(widget.uid!);
-        setState(() {
-          _model.image = _model.categoryData!.image;
-        });
-      }
-    });
-
-    _model.textController ??=
-        TextEditingController(text: _model.categoryData?.name);
+    _model.textController1 ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
+
+    _model.orderFieldController ??= TextEditingController();
+    _model.orderFieldFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -143,6 +131,9 @@ class _CreateCategoryComponentWidgetState
                             size: 24.0,
                           ),
                           onPressed: () async {
+                            setState(() {
+                              FFAppState().categoryRef = null;
+                            });
                             Navigator.pop(context);
                           },
                         ),
@@ -178,7 +169,7 @@ class _CreateCategoryComponentWidgetState
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               child: Image.network(
-                                _model.image,
+                                _model.uploadedFileUrl,
                                 width: 150.0,
                                 fit: BoxFit.cover,
                                 errorBuilder: (context, error, stackTrace) =>
@@ -251,10 +242,6 @@ class _CreateCategoryComponentWidgetState
                                     return;
                                   }
                                 }
-
-                                setState(() {
-                                  _model.image = _model.uploadedFileUrl;
-                                });
                               },
                               text: 'Subir',
                               icon: const Icon(
@@ -288,9 +275,9 @@ class _CreateCategoryComponentWidgetState
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 12.0),
                             child: TextFormField(
-                              controller: _model.textController,
+                              controller: _model.textController1,
                               focusNode: _model.textFieldFocusNode,
-                              autofocus: true,
+                              autofocus: false,
                               textCapitalization: TextCapitalization.words,
                               obscureText: false,
                               decoration: InputDecoration(
@@ -345,13 +332,82 @@ class _CreateCategoryComponentWidgetState
                                     letterSpacing: 0.0,
                                   ),
                               minLines: null,
-                              validator: _model.textControllerValidator
+                              validator: _model.textController1Validator
                                   .asValidator(context),
                             ),
                           ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 12.0),
+                            child: TextFormField(
+                              controller: _model.orderFieldController,
+                              focusNode: _model.orderFieldFocusNode,
+                              autofocus: false,
+                              textCapitalization: TextCapitalization.words,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      fontFamily: 'Readex Pro',
+                                      letterSpacing: 0.0,
+                                    ),
+                                hintText: 'Orden de aparición de la categoria',
+                                hintStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      fontFamily: 'Readex Pro',
+                                      letterSpacing: 0.0,
+                                    ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    width: 2.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    width: 2.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 2.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 2.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                filled: true,
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Readex Pro',
+                                    letterSpacing: 0.0,
+                                  ),
+                              minLines: null,
+                              keyboardType: TextInputType.number,
+                              validator: _model.orderFieldControllerValidator
+                                  .asValidator(context),
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp('[0-9]'))
+                              ],
+                            ),
+                          ),
                           SwitchListTile.adaptive(
-                            value: _model.switchListTileValue ??=
-                                _model.categoryData!.status,
+                            value: _model.switchListTileValue ??= true,
                             onChanged: (newValue) async {
                               setState(
                                   () => _model.switchListTileValue = newValue);
@@ -379,60 +435,34 @@ class _CreateCategoryComponentWidgetState
                                 0.0, 24.0, 0.0, 24.0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                if (widget.uid != null) {
-                                  await widget.uid!
-                                      .update(createCategoriesRecordData(
-                                    name: _model.textController.text,
-                                    image: _model.image,
-                                    uAt: getCurrentTimestamp,
-                                  ));
-                                  Navigator.pop(context);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Se actualizo con éxito!',
-                                        style: TextStyle(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                        ),
+                                await CategoriesRecord.collection
+                                    .doc()
+                                    .set(createCategoriesRecordData(
+                                      name: _model.textController1.text,
+                                      image: _model.image,
+                                      user: currentUserReference,
+                                      cAt: getCurrentTimestamp,
+                                      companyRef: FFAppState().companyRef,
+                                      order: int.tryParse(
+                                          _model.orderFieldController.text),
+                                    ));
+                                Navigator.pop(context);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Se creo la categoria con éxito!',
+                                      style: TextStyle(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
                                       ),
-                                      duration: const Duration(milliseconds: 4000),
-                                      backgroundColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondary,
                                     ),
-                                  );
-                                } else {
-                                  await CategoriesRecord.collection
-                                      .doc()
-                                      .set(createCategoriesRecordData(
-                                        name: _model.textController.text,
-                                        image: _model.image,
-                                        user: currentUserReference,
-                                        cAt: getCurrentTimestamp,
-                                        companyRef: FFAppState().companyRef,
-                                      ));
-                                  Navigator.pop(context);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Se creo la categoria con éxito!',
-                                        style: TextStyle(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                        ),
-                                      ),
-                                      duration: const Duration(milliseconds: 4000),
-                                      backgroundColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondary,
-                                    ),
-                                  );
-                                }
+                                    duration: const Duration(milliseconds: 4000),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context).secondary,
+                                  ),
+                                );
                               },
-                              text: widget.uid != null
-                                  ? 'Actualizar'
-                                  : 'Registrar',
+                              text: 'Crear categoria',
                               options: FFButtonOptions(
                                 height: 40.0,
                                 padding: const EdgeInsetsDirectional.fromSTEB(

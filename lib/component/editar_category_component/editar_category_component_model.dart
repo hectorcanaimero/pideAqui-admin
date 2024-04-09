@@ -1,10 +1,10 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'create_category_component_widget.dart'
-    show CreateCategoryComponentWidget;
+import 'editar_category_component_widget.dart'
+    show EditarCategoryComponentWidget;
 import 'package:flutter/material.dart';
 
-class CreateCategoryComponentModel
-    extends FlutterFlowModel<CreateCategoryComponentWidget> {
+class EditarCategoryComponentModel
+    extends FlutterFlowModel<EditarCategoryComponentWidget> {
   ///  Local state fields for this component.
 
   String image = '';

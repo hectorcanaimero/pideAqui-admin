@@ -31,6 +31,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
 
     _model.passwordController ??= TextEditingController();
     _model.passwordFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -347,7 +349,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     },
                                     text: 'Entrar',
                                     options: FFButtonOptions(
-                                      width: 370.0,
+                                      width: double.infinity,
                                       height: 44.0,
                                       padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 0.0),

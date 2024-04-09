@@ -25,6 +25,8 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SettingPageModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

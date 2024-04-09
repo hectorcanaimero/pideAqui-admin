@@ -23,6 +23,8 @@ class _SupportPageWidgetState extends State<SupportPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SupportPageModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

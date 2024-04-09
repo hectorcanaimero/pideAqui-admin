@@ -46,6 +46,8 @@ class _CompanyComponentWidgetState extends State<CompanyComponentWidget> {
 
     _model.emailFieldController ??= TextEditingController();
     _model.emailFieldFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

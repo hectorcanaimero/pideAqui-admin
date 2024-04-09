@@ -5,6 +5,7 @@ import 'package:collection/collection.dart';
 import '/backend/schema/util/firestore_util.dart';
 
 import 'index.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
 class CategoriesRecord extends FirestoreRecord {
   CategoriesRecord._(
@@ -44,11 +45,6 @@ class CategoriesRecord extends FirestoreRecord {
   DateTime? get uAt => _uAt;
   bool hasUAt() => _uAt != null;
 
-  // "order" field.
-  List<OrderProductStruct>? _order;
-  List<OrderProductStruct> get order => _order ?? const [];
-  bool hasOrder() => _order != null;
-
   // "customerRef" field.
   DocumentReference? _customerRef;
   DocumentReference? get customerRef => _customerRef;
@@ -59,6 +55,11 @@ class CategoriesRecord extends FirestoreRecord {
   bool get status => _status ?? false;
   bool hasStatus() => _status != null;
 
+  // "order" field.
+  int? _order;
+  int get order => _order ?? 0;
+  bool hasOrder() => _order != null;
+
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _image = snapshotData['image'] as String?;
@@ -66,12 +67,9 @@ class CategoriesRecord extends FirestoreRecord {
     _cAt = snapshotData['cAt'] as DateTime?;
     _companyRef = snapshotData['companyRef'] as DocumentReference?;
     _uAt = snapshotData['uAt'] as DateTime?;
-    _order = getStructList(
-      snapshotData['order'],
-      OrderProductStruct.fromMap,
-    );
     _customerRef = snapshotData['customerRef'] as DocumentReference?;
     _status = snapshotData['status'] as bool?;
+    _order = castToType<int>(snapshotData['order']);
   }
 
   static CollectionReference get collection =>
@@ -117,6 +115,7 @@ Map<String, dynamic> createCategoriesRecordData({
   DateTime? uAt,
   DocumentReference? customerRef,
   bool? status,
+  int? order,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -128,6 +127,7 @@ Map<String, dynamic> createCategoriesRecordData({
       'uAt': uAt,
       'customerRef': customerRef,
       'status': status,
+      'order': order,
     }.withoutNulls,
   );
 
@@ -139,16 +139,15 @@ class CategoriesRecordDocumentEquality implements Equality<CategoriesRecord> {
 
   @override
   bool equals(CategoriesRecord? e1, CategoriesRecord? e2) {
-    const listEquality = ListEquality();
     return e1?.name == e2?.name &&
         e1?.image == e2?.image &&
         e1?.user == e2?.user &&
         e1?.cAt == e2?.cAt &&
         e1?.companyRef == e2?.companyRef &&
         e1?.uAt == e2?.uAt &&
-        listEquality.equals(e1?.order, e2?.order) &&
         e1?.customerRef == e2?.customerRef &&
-        e1?.status == e2?.status;
+        e1?.status == e2?.status &&
+        e1?.order == e2?.order;
   }
 
   @override
@@ -159,9 +158,9 @@ class CategoriesRecordDocumentEquality implements Equality<CategoriesRecord> {
         e?.cAt,
         e?.companyRef,
         e?.uAt,
-        e?.order,
         e?.customerRef,
-        e?.status
+        e?.status,
+        e?.order
       ]);
 
   @override

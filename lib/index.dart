@@ -22,3 +22,5 @@ export '/pages/create_user_page/create_user_page_widget.dart'
     show CreateUserPageWidget;
 export '/pages/create_company_page/create_company_page_widget.dart'
     show CreateCompanyPageWidget;
+export '/pages/editar_product_page/editar_product_page_widget.dart'
+    show EditarProductPageWidget;
