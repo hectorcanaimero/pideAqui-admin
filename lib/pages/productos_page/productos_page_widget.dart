@@ -675,8 +675,8 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                                       child: Image.network(
                                                         listViewCategoriesRecord
                                                             .image,
-                                                        width: 50.0,
-                                                        height: 50.0,
+                                                        width: 55.0,
+                                                        height: 55.0,
                                                         fit: BoxFit.cover,
                                                       ),
                                                     ),
