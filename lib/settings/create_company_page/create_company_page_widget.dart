@@ -12,6 +12,7 @@ import 'package:styled_divider/styled_divider.dart';
 import 'package:collection/collection.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
 import 'create_company_page_model.dart';
@@ -35,7 +36,16 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
     super.initState();
     _model = createModel(context, () => CreateCompanyPageModel());
 
-    _model.nameFieldController ??= TextEditingController();
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (FFAppState().companyRef != null) {
+        _model.resCompany =
+            await CompaniesRecord.getDocumentOnce(FFAppState().companyRef!);
+      }
+    });
+
+    _model.nameFieldController ??=
+        TextEditingController(text: _model.resCompany?.name);
     _model.nameFieldFocusNode ??= FocusNode();
 
     _model.slugFieldController ??= TextEditingController(
@@ -126,7 +136,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                             child: Text(
                               FFAppState().companyRef != null
                                   ? 'Vamos a registrar...'
-                                  : 'Actualizamos la compañia',
+                                  : 'Actualizar la compañia...',
                               textAlign: TextAlign.start,
                               style: FlutterFlowTheme.of(context)
                                   .labelLarge

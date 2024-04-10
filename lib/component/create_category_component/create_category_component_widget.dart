@@ -439,7 +439,7 @@ class _CreateCategoryComponentWidgetState
                                     .doc()
                                     .set(createCategoriesRecordData(
                                       name: _model.textController1.text,
-                                      image: _model.image,
+                                      image: _model.uploadedFileUrl,
                                       user: currentUserReference,
                                       cAt: getCurrentTimestamp,
                                       companyRef: FFAppState().companyRef,

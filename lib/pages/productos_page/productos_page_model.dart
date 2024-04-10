@@ -21,13 +21,6 @@ class ProductosPageModel extends FlutterFlowModel<ProductosPageWidget> {
 
   // State field(s) for ListView widget.
 
-  PagingController<DocumentSnapshot?, ProductsRecord>?
-      listViewPagingController1;
-  Query? listViewPagingQuery1;
-  List<StreamSubscription?> listViewStreamSubscriptions1 = [];
-
-  // State field(s) for ListView widget.
-
   PagingController<DocumentSnapshot?, CategoriesRecord>?
       listViewPagingController2;
   Query? listViewPagingQuery2;
@@ -43,11 +36,6 @@ class ProductosPageModel extends FlutterFlowModel<ProductosPageWidget> {
   void dispose() {
     unfocusNode.dispose();
     tabBarController?.dispose();
-    for (var s in listViewStreamSubscriptions1) {
-      s?.cancel();
-    }
-    listViewPagingController1?.dispose();
-
     for (var s in listViewStreamSubscriptions2) {
       s?.cancel();
     }
@@ -55,38 +43,6 @@ class ProductosPageModel extends FlutterFlowModel<ProductosPageWidget> {
   }
 
   /// Additional helper methods.
-  PagingController<DocumentSnapshot?, ProductsRecord> setListViewController1(
-    Query query, {
-    DocumentReference<Object?>? parent,
-  }) {
-    listViewPagingController1 ??= _createListViewController1(query, parent);
-    if (listViewPagingQuery1 != query) {
-      listViewPagingQuery1 = query;
-      listViewPagingController1?.refresh();
-    }
-    return listViewPagingController1!;
-  }
-
-  PagingController<DocumentSnapshot?, ProductsRecord>
-      _createListViewController1(
-    Query query,
-    DocumentReference<Object?>? parent,
-  ) {
-    final controller =
-        PagingController<DocumentSnapshot?, ProductsRecord>(firstPageKey: null);
-    return controller
-      ..addPageRequestListener(
-        (nextPageMarker) => queryProductsRecordPage(
-          queryBuilder: (_) => listViewPagingQuery1 ??= query,
-          nextPageMarker: nextPageMarker,
-          streamSubscriptions: listViewStreamSubscriptions1,
-          controller: controller,
-          pageSize: 25,
-          isStream: true,
-        ),
-      );
-  }
-
   PagingController<DocumentSnapshot?, CategoriesRecord> setListViewController2(
     Query query, {
     DocumentReference<Object?>? parent,
