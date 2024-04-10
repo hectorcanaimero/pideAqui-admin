@@ -612,7 +612,8 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                                               .companyRef!
                                                               .id),
                                                 )
-                                                .orderBy('order'),
+                                                .orderBy('order')
+                                                .orderBy('name'),
                                           ),
                                           padding: EdgeInsets.zero,
                                           primary: false,
