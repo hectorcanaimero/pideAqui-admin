@@ -1,6 +1,8 @@
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'productos_page_widget.dart' show ProductosPageWidget;
 import 'package:flutter/material.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class ProductosPageModel extends FlutterFlowModel<ProductosPageWidget> {
   ///  Local state fields for this page.
@@ -17,6 +19,13 @@ class ProductosPageModel extends FlutterFlowModel<ProductosPageWidget> {
   int get tabBarCurrentIndex =>
       tabBarController != null ? tabBarController!.index : 0;
 
+  // State field(s) for ListView widget.
+
+  PagingController<DocumentSnapshot?, CategoriesRecord>?
+      listViewPagingController2;
+  Query? listViewPagingQuery2;
+  List<StreamSubscription?> listViewStreamSubscriptions2 = [];
+
   // Stores action output result for [Firestore Query - Query a collection] action in IconButton widget.
   int? haveProduct;
 
@@ -27,5 +36,42 @@ class ProductosPageModel extends FlutterFlowModel<ProductosPageWidget> {
   void dispose() {
     unfocusNode.dispose();
     tabBarController?.dispose();
+    for (var s in listViewStreamSubscriptions2) {
+      s?.cancel();
+    }
+    listViewPagingController2?.dispose();
+  }
+
+  /// Additional helper methods.
+  PagingController<DocumentSnapshot?, CategoriesRecord> setListViewController2(
+    Query query, {
+    DocumentReference<Object?>? parent,
+  }) {
+    listViewPagingController2 ??= _createListViewController2(query, parent);
+    if (listViewPagingQuery2 != query) {
+      listViewPagingQuery2 = query;
+      listViewPagingController2?.refresh();
+    }
+    return listViewPagingController2!;
+  }
+
+  PagingController<DocumentSnapshot?, CategoriesRecord>
+      _createListViewController2(
+    Query query,
+    DocumentReference<Object?>? parent,
+  ) {
+    final controller = PagingController<DocumentSnapshot?, CategoriesRecord>(
+        firstPageKey: null);
+    return controller
+      ..addPageRequestListener(
+        (nextPageMarker) => queryCategoriesRecordPage(
+          queryBuilder: (_) => listViewPagingQuery2 ??= query,
+          nextPageMarker: nextPageMarker,
+          streamSubscriptions: listViewStreamSubscriptions2,
+          controller: controller,
+          pageSize: 25,
+          isStream: true,
+        ),
+      );
   }
 }
