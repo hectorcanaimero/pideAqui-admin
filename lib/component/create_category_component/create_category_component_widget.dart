@@ -445,6 +445,7 @@ class _CreateCategoryComponentWidgetState
                                       companyRef: FFAppState().companyRef,
                                       order: int.tryParse(
                                           _model.orderFieldController.text),
+                                      status: true,
                                     ));
                                 Navigator.pop(context);
                                 ScaffoldMessenger.of(context).showSnackBar(
