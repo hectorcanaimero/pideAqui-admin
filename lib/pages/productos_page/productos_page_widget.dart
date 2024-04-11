@@ -764,6 +764,8 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                                                         .override(
                                                                           fontFamily:
                                                                               'Readex Pro',
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondaryText,
                                                                           letterSpacing:
                                                                               0.0,
                                                                         ),
@@ -778,8 +780,10 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                                                       .override(
                                                                         fontFamily:
                                                                             'Readex Pro',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryText,
                                                                         fontSize:
-                                                                            16.0,
+                                                                            14.0,
                                                                         letterSpacing:
                                                                             0.0,
                                                                       ),
