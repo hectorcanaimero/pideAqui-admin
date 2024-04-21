@@ -35,6 +35,9 @@ class FFAppState extends ChangeNotifier {
         }
       }
     });
+    _safeInit(() {
+      _settingStatus = prefs.getInt('ff_settingStatus') ?? _settingStatus;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -76,6 +79,13 @@ class FFAppState extends ChangeNotifier {
   DocumentReference? get categoryRef => _categoryRef;
   set categoryRef(DocumentReference? value) {
     _categoryRef = value;
+  }
+
+  int _settingStatus = 0;
+  int get settingStatus => _settingStatus;
+  set settingStatus(int value) {
+    _settingStatus = value;
+    prefs.setInt('ff_settingStatus', value);
   }
 }
 

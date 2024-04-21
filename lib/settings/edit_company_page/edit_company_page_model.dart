@@ -1,11 +1,11 @@
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'create_company_page_widget.dart' show CreateCompanyPageWidget;
+import 'edit_company_page_widget.dart' show EditCompanyPageWidget;
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-class CreateCompanyPageModel extends FlutterFlowModel<CreateCompanyPageWidget> {
+class EditCompanyPageModel extends FlutterFlowModel<EditCompanyPageWidget> {
   ///  Local state fields for this page.
 
   String? slug;
@@ -14,6 +14,8 @@ class CreateCompanyPageModel extends FlutterFlowModel<CreateCompanyPageWidget> {
 
   final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
+  // Stores action output result for [Backend Call - Read Document] action in EditCompanyPage widget.
+  CompaniesRecord? resCompany;
   // State field(s) for NameField widget.
   FocusNode? nameFieldFocusNode;
   TextEditingController? nameFieldTextController;
@@ -26,20 +28,6 @@ class CreateCompanyPageModel extends FlutterFlowModel<CreateCompanyPageWidget> {
     return null;
   }
 
-  // State field(s) for SlugField widget.
-  FocusNode? slugFieldFocusNode;
-  TextEditingController? slugFieldTextController;
-  String? Function(BuildContext, String?)? slugFieldTextControllerValidator;
-  String? _slugFieldTextControllerValidator(BuildContext context, String? val) {
-    if (val == null || val.isEmpty) {
-      return 'Field is required';
-    }
-
-    return null;
-  }
-
-  // Stores action output result for [Firestore Query - Query a collection] action in SlugField widget.
-  CompaniesRecord? aleradyexist;
   // State field(s) for CountryDown widget.
   String? countryDownValue;
   FormFieldController<String>? countryDownValueController;
@@ -69,13 +57,10 @@ class CreateCompanyPageModel extends FlutterFlowModel<CreateCompanyPageWidget> {
   // State field(s) for CheckboxGroup widget.
   List<String>? checkboxGroupValues;
   FormFieldController<List<String>>? checkboxGroupValueController;
-  // Stores action output result for [Backend Call - Create Document] action in Button widget.
-  CompaniesRecord? crateCompany;
 
   @override
   void initState(BuildContext context) {
     nameFieldTextControllerValidator = _nameFieldTextControllerValidator;
-    slugFieldTextControllerValidator = _slugFieldTextControllerValidator;
     emailFieldTextControllerValidator = _emailFieldTextControllerValidator;
   }
 
@@ -84,9 +69,6 @@ class CreateCompanyPageModel extends FlutterFlowModel<CreateCompanyPageWidget> {
     unfocusNode.dispose();
     nameFieldFocusNode?.dispose();
     nameFieldTextController?.dispose();
-
-    slugFieldFocusNode?.dispose();
-    slugFieldTextController?.dispose();
 
     venFieldFocusNode?.dispose();
     venFieldTextController?.dispose();

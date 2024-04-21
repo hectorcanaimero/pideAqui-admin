@@ -12,7 +12,6 @@ import 'package:styled_divider/styled_divider.dart';
 import 'package:collection/collection.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
 import 'create_company_page_model.dart';
@@ -36,32 +35,23 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
     super.initState();
     _model = createModel(context, () => CreateCompanyPageModel());
 
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (FFAppState().companyRef != null) {
-        _model.resCompany =
-            await CompaniesRecord.getDocumentOnce(FFAppState().companyRef!);
-      }
-    });
-
-    _model.nameFieldController ??=
-        TextEditingController(text: _model.resCompany?.name);
+    _model.nameFieldTextController ??= TextEditingController();
     _model.nameFieldFocusNode ??= FocusNode();
 
-    _model.slugFieldController ??= TextEditingController(
+    _model.slugFieldTextController ??= TextEditingController(
         text: valueOrDefault<String>(
       _model.slug,
       'aloja',
     ));
     _model.slugFieldFocusNode ??= FocusNode();
 
-    _model.venFieldController ??= TextEditingController();
+    _model.venFieldTextController ??= TextEditingController();
     _model.venFieldFocusNode ??= FocusNode();
 
-    _model.rDFieldController ??= TextEditingController();
+    _model.rDFieldTextController ??= TextEditingController();
     _model.rDFieldFocusNode ??= FocusNode();
 
-    _model.emailFieldController ??= TextEditingController();
+    _model.emailFieldTextController ??= TextEditingController();
     _model.emailFieldFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -134,9 +124,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                           Align(
                             alignment: const AlignmentDirectional(-1.0, 0.0),
                             child: Text(
-                              FFAppState().companyRef != null
-                                  ? 'Vamos a registrar...'
-                                  : 'Actualizar la compañia...',
+                              'Vamos a registrar...',
                               textAlign: TextAlign.start,
                               style: FlutterFlowTheme.of(context)
                                   .labelLarge
@@ -172,19 +160,19 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 16.0),
                             child: TextFormField(
-                              controller: _model.nameFieldController,
+                              controller: _model.nameFieldTextController,
                               focusNode: _model.nameFieldFocusNode,
                               onChanged: (_) => EasyDebounce.debounce(
-                                '_model.nameFieldController',
+                                '_model.nameFieldTextController',
                                 const Duration(milliseconds: 2000),
                                 () async {
                                   setState(() {
                                     _model.slug = functions.getSlug(
-                                        _model.nameFieldController.text);
+                                        _model.nameFieldTextController.text);
                                   });
                                 },
                               ),
-                              autofocus: true,
+                              autofocus: false,
                               textCapitalization: TextCapitalization.words,
                               obscureText: false,
                               decoration: InputDecoration(
@@ -238,29 +226,8 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                     fontFamily: 'Readex Pro',
                                     letterSpacing: 0.0,
                                   ),
-                              minLines: null,
-                              validator: _model.nameFieldControllerValidator
+                              validator: _model.nameFieldTextControllerValidator
                                   .asValidator(context),
-                            ),
-                          ),
-                          Align(
-                            alignment: const AlignmentDirectional(-1.0, 0.0),
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 10.0),
-                              child: Text(
-                                valueOrDefault<String>(
-                                  _model.slug,
-                                  'uno',
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                    ),
-                              ),
                             ),
                           ),
                           Align(
@@ -289,21 +256,21 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                               children: [
                                 Expanded(
                                   child: TextFormField(
-                                    controller: _model.slugFieldController,
+                                    controller: _model.slugFieldTextController,
                                     focusNode: _model.slugFieldFocusNode,
                                     onChanged: (_) => EasyDebounce.debounce(
-                                      '_model.slugFieldController',
+                                      '_model.slugFieldTextController',
                                       const Duration(milliseconds: 2000),
                                       () async {
-                                        if (functions.isSlug(
-                                            _model.slugFieldController.text)) {
+                                        if (functions.isSlug(_model
+                                            .slugFieldTextController.text)) {
                                           _model.aleradyexist =
                                               await queryCompaniesRecordOnce(
                                             queryBuilder: (companiesRecord) =>
                                                 companiesRecord.where(
                                               'slug',
                                               isEqualTo: _model
-                                                  .slugFieldController.text,
+                                                  .slugFieldTextController.text,
                                             ),
                                             singleRecord: true,
                                           ).then((s) => s.firstOrNull);
@@ -329,7 +296,8 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                               },
                                             );
                                             setState(() {
-                                              _model.slugFieldController?.text =
+                                              _model.slugFieldTextController
+                                                      ?.text =
                                                   valueOrDefault<String>(
                                                 _model.slug,
                                                 'aloja',
@@ -428,9 +396,8 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                           letterSpacing: 0.0,
                                         ),
                                     textAlign: TextAlign.end,
-                                    minLines: null,
                                     validator: _model
-                                        .slugFieldControllerValidator
+                                        .slugFieldTextControllerValidator
                                         .asValidator(context),
                                   ),
                                 ),
@@ -495,7 +462,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 16.0),
                                   child: TextFormField(
-                                    controller: _model.venFieldController,
+                                    controller: _model.venFieldTextController,
                                     focusNode: _model.venFieldFocusNode,
                                     autofocus: false,
                                     obscureText: false,
@@ -557,10 +524,9 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                           fontFamily: 'Readex Pro',
                                           letterSpacing: 0.0,
                                         ),
-                                    minLines: null,
                                     keyboardType: TextInputType.number,
                                     validator: _model
-                                        .venFieldControllerValidator
+                                        .venFieldTextControllerValidator
                                         .asValidator(context),
                                     inputFormatters: [_model.venFieldMask],
                                   ),
@@ -570,7 +536,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 16.0),
                                   child: TextFormField(
-                                    controller: _model.rDFieldController,
+                                    controller: _model.rDFieldTextController,
                                     focusNode: _model.rDFieldFocusNode,
                                     autofocus: false,
                                     obscureText: false,
@@ -632,9 +598,9 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                           fontFamily: 'Readex Pro',
                                           letterSpacing: 0.0,
                                         ),
-                                    minLines: null,
                                     keyboardType: TextInputType.number,
-                                    validator: _model.rDFieldControllerValidator
+                                    validator: _model
+                                        .rDFieldTextControllerValidator
                                         .asValidator(context),
                                     inputFormatters: [_model.rDFieldMask],
                                   ),
@@ -646,9 +612,9 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 16.0),
                             child: TextFormField(
-                              controller: _model.emailFieldController,
+                              controller: _model.emailFieldTextController,
                               focusNode: _model.emailFieldFocusNode,
-                              autofocus: true,
+                              autofocus: false,
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelStyle: FlutterFlowTheme.of(context)
@@ -701,9 +667,9 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                     fontFamily: 'Readex Pro',
                                     letterSpacing: 0.0,
                                   ),
-                              minLines: null,
                               keyboardType: TextInputType.emailAddress,
-                              validator: _model.emailFieldControllerValidator
+                              validator: _model
+                                  .emailFieldTextControllerValidator
                                   .asValidator(context),
                             ),
                           ),
@@ -755,14 +721,14 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                 await companiesRecordReference.set({
                                   ...createCompaniesRecordData(
                                     user: currentUserReference,
-                                    name: _model.nameFieldController.text,
+                                    name: _model.nameFieldTextController.text,
                                     phone:
                                         _model.countryDownValue == 'Venezuela'
-                                            ? _model.venFieldController.text
-                                            : _model.rDFieldController.text,
-                                    email: _model.emailFieldController.text,
+                                            ? _model.venFieldTextController.text
+                                            : _model.rDFieldTextController.text,
+                                    email: _model.emailFieldTextController.text,
                                     country: _model.countryDownValue,
-                                    slug: _model.slugFieldController.text,
+                                    slug: _model.slugFieldTextController.text,
                                   ),
                                   ...mapToFirestore(
                                     {
@@ -775,14 +741,14 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                     CompaniesRecord.getDocumentFromData({
                                   ...createCompaniesRecordData(
                                     user: currentUserReference,
-                                    name: _model.nameFieldController.text,
+                                    name: _model.nameFieldTextController.text,
                                     phone:
                                         _model.countryDownValue == 'Venezuela'
-                                            ? _model.venFieldController.text
-                                            : _model.rDFieldController.text,
-                                    email: _model.emailFieldController.text,
+                                            ? _model.venFieldTextController.text
+                                            : _model.rDFieldTextController.text,
+                                    email: _model.emailFieldTextController.text,
                                     country: _model.countryDownValue,
-                                    slug: _model.slugFieldController.text,
+                                    slug: _model.slugFieldTextController.text,
                                   ),
                                   ...mapToFirestore(
                                     {
