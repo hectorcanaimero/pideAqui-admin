@@ -3,7 +3,6 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'login_page_model.dart';
@@ -56,11 +55,11 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
           height: double.infinity,
           decoration: BoxDecoration(
             color: FlutterFlowTheme.of(context).secondaryBackground,
-            image: const DecorationImage(
+            image: DecorationImage(
               fit: BoxFit.cover,
-              image: CachedNetworkImageProvider(
-                'https://firebasestorage.googleapis.com/v0/b/pideaqui/o/BG_LOGIN.jpg?alt=media',
-              ),
+              image: Image.asset(
+                'assets/images/BG_LOGIN.jpg',
+              ).image,
             ),
           ),
           child: Row(
@@ -110,8 +109,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     0.0, 12.0, 0.0, 12.0),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(8.0),
-                                  child: Image.network(
-                                    'https://firebasestorage.googleapis.com/v0/b/pideaqui/o/logo.png?alt=media',
+                                  child: Image.asset(
+                                    'assets/images/logo.png',
                                     height: 55.0,
                                     fit: BoxFit.fitWidth,
                                   ),
