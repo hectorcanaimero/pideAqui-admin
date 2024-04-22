@@ -492,7 +492,8 @@ class _EditarProductPageWidgetState extends State<EditarProductPageWidget>
                                                                   .where(
                                                         'companyRef',
                                                         isEqualTo: FFAppState()
-                                                            .companyRef,
+                                                            .company
+                                                            .ref,
                                                       ),
                                                     ),
                                                     builder:
@@ -1200,7 +1201,8 @@ class _EditarProductPageWidgetState extends State<EditarProductPageWidget>
                                                         cAt:
                                                             getCurrentTimestamp,
                                                         companyRef: FFAppState()
-                                                            .companyRef,
+                                                            .company
+                                                            .ref,
                                                         description: _model
                                                             .descriptionFieldTextController
                                                             .text,
@@ -1235,7 +1237,8 @@ class _EditarProductPageWidgetState extends State<EditarProductPageWidget>
                                                                     getCurrentTimestamp,
                                                                 companyRef:
                                                                     FFAppState()
-                                                                        .companyRef,
+                                                                        .company
+                                                                        .ref,
                                                                 description: _model
                                                                     .descriptionFieldTextController
                                                                     .text,

@@ -441,7 +441,7 @@ class _CreateCategoryComponentWidgetState
                                       image: _model.uploadedFileUrl,
                                       user: currentUserReference,
                                       cAt: getCurrentTimestamp,
-                                      companyRef: FFAppState().companyRef,
+                                      companyRef: FFAppState().company.ref,
                                       order: int.tryParse(
                                           _model.orderFieldTextController.text),
                                     ));

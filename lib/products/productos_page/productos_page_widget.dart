@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/products/create_category_component/create_category_component_widget.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:styled_divider/styled_divider.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +40,7 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
       _model.countProduct = await queryProductsRecordCount(
         queryBuilder: (productsRecord) => productsRecord.where(
           'companyRef',
-          isEqualTo: FFAppState().companyRef,
+          isEqualTo: FFAppState().company.ref,
         ),
       );
       setState(() {
@@ -224,10 +223,10 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                                               productsRecord
                                                                   .where(
                                                                     'companyRef',
-                                                                    isEqualTo: functions.parseRefCompany(
+                                                                    isEqualTo:
                                                                         FFAppState()
-                                                                            .companyRef!
-                                                                            .id),
+                                                                            .company
+                                                                            .ref,
                                                                   )
                                                                   .orderBy(
                                                                       'cAt',
@@ -648,10 +647,7 @@ class _ProductosPageWidgetState extends State<ProductosPageWidget>
                                                 .where(
                                                   'companyRef',
                                                   isEqualTo:
-                                                      functions.parseRefCompany(
-                                                          FFAppState()
-                                                              .companyRef!
-                                                              .id),
+                                                      FFAppState().company.ref,
                                                 )
                                                 .orderBy('order')
                                                 .orderBy('name'),

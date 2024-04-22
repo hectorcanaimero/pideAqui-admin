@@ -789,7 +789,7 @@ class _DeliveryComponentWidgetState extends State<DeliveryComponentWidget> {
                             alignment: const AlignmentDirectional(0.0, 0.0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                await FFAppState().companyRef!.update({
+                                await FFAppState().company.ref!.update({
                                   ...createCompaniesRecordData(
                                     fixedTax: double.tryParse(
                                         _model.textController2.text),

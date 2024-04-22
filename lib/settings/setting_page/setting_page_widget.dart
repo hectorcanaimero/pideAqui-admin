@@ -122,36 +122,23 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          if (FFAppState().companyRef != null) {
-                            context.pushNamed(
-                              'EditCompanyPage',
-                              queryParameters: {
-                                'uid': serializeParam(
-                                  FFAppState().companyRef,
-                                  ParamType.DocumentReference,
-                                ),
-                              }.withoutNulls,
-                              extra: <String, dynamic>{
-                                kTransitionInfoKey: const TransitionInfo(
-                                  hasTransition: true,
-                                  transitionType:
-                                      PageTransitionType.bottomToTop,
-                                ),
-                              },
-                            );
-                          } else {
-                            context.pushNamed(
-                              'CreateCompanyPage',
-                              extra: <String, dynamic>{
-                                kTransitionInfoKey: const TransitionInfo(
-                                  hasTransition: true,
-                                  transitionType:
-                                      PageTransitionType.bottomToTop,
-                                ),
-                              },
-                            );
-                          }
-                        },
+                          context.pushNamed(
+                            'EditCompanyPage',
+                            queryParameters: {
+                              'uid': serializeParam(
+                                FFAppState().company.ref,
+                                ParamType.DocumentReference,
+                              ),
+                            }.withoutNulls,
+                            extra: <String, dynamic>{
+                              kTransitionInfoKey: const TransitionInfo(
+                                hasTransition: true,
+                                transitionType:
+                                    PageTransitionType.bottomToTop,
+                              ),
+                            },
+                          );
+                                                },
                         child: Container(
                           width: 100.0,
                           height: 100.0,
@@ -205,63 +192,30 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          if (FFAppState().companyRef != null) {
-                            await showModalBottomSheet(
-                              isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
-                              enableDrag: false,
-                              context: context,
-                              builder: (context) {
-                                return WebViewAware(
-                                  child: GestureDetector(
-                                    onTap: () => _model
-                                            .unfocusNode.canRequestFocus
-                                        ? FocusScope.of(context)
-                                            .requestFocus(_model.unfocusNode)
-                                        : FocusScope.of(context).unfocus(),
-                                    child: Padding(
-                                      padding: MediaQuery.viewInsetsOf(context),
-                                      child: DeliveryComponentWidget(
-                                        uid: FFAppState().companyRef!,
-                                      ),
+                          await showModalBottomSheet(
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            enableDrag: false,
+                            context: context,
+                            builder: (context) {
+                              return WebViewAware(
+                                child: GestureDetector(
+                                  onTap: () => _model
+                                          .unfocusNode.canRequestFocus
+                                      ? FocusScope.of(context)
+                                          .requestFocus(_model.unfocusNode)
+                                      : FocusScope.of(context).unfocus(),
+                                  child: Padding(
+                                    padding: MediaQuery.viewInsetsOf(context),
+                                    child: DeliveryComponentWidget(
+                                      uid: FFAppState().company.ref!,
                                     ),
                                   ),
-                                );
-                              },
-                            ).then((value) => safeSetState(() {}));
-                          } else {
-                            await showDialog(
-                              context: context,
-                              builder: (alertDialogContext) {
-                                return WebViewAware(
-                                  child: AlertDialog(
-                                    title: const Text('Atención'),
-                                    content: const Text(
-                                        'Es necesario crear la compañia primero.'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(alertDialogContext),
-                                        child: const Text('Ok'),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            );
-
-                            context.pushNamed(
-                              'CreateCompanyPage',
-                              extra: <String, dynamic>{
-                                kTransitionInfoKey: const TransitionInfo(
-                                  hasTransition: true,
-                                  transitionType:
-                                      PageTransitionType.bottomToTop,
                                 ),
-                              },
-                            );
-                          }
-                        },
+                              );
+                            },
+                          ).then((value) => safeSetState(() {}));
+                                                },
                         child: Container(
                           width: 100.0,
                           height: 100.0,
@@ -315,56 +269,23 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          if (FFAppState().companyRef != null) {
-                            context.pushNamed(
-                              'HoursPage',
-                              queryParameters: {
-                                'uid': serializeParam(
-                                  FFAppState().companyRef,
-                                  ParamType.DocumentReference,
-                                ),
-                              }.withoutNulls,
-                              extra: <String, dynamic>{
-                                kTransitionInfoKey: const TransitionInfo(
-                                  hasTransition: true,
-                                  transitionType:
-                                      PageTransitionType.bottomToTop,
-                                ),
-                              },
-                            );
-                          } else {
-                            await showDialog(
-                              context: context,
-                              builder: (alertDialogContext) {
-                                return WebViewAware(
-                                  child: AlertDialog(
-                                    title: const Text('Atención'),
-                                    content: const Text(
-                                        'Es necesario crear la compañia primero.'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(alertDialogContext),
-                                        child: const Text('Ok'),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            );
-
-                            context.pushNamed(
-                              'CreateCompanyPage',
-                              extra: <String, dynamic>{
-                                kTransitionInfoKey: const TransitionInfo(
-                                  hasTransition: true,
-                                  transitionType:
-                                      PageTransitionType.bottomToTop,
-                                ),
-                              },
-                            );
-                          }
-                        },
+                          context.pushNamed(
+                            'HoursPage',
+                            queryParameters: {
+                              'uid': serializeParam(
+                                FFAppState().company.ref,
+                                ParamType.DocumentReference,
+                              ),
+                            }.withoutNulls,
+                            extra: <String, dynamic>{
+                              kTransitionInfoKey: const TransitionInfo(
+                                hasTransition: true,
+                                transitionType:
+                                    PageTransitionType.bottomToTop,
+                              ),
+                            },
+                          );
+                                                },
                         child: Container(
                           width: 100.0,
                           height: 100.0,
@@ -434,7 +355,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                   child: Padding(
                                     padding: MediaQuery.viewInsetsOf(context),
                                     child: DeliveryComponentWidget(
-                                      uid: FFAppState().companyRef!,
+                                      uid: FFAppState().company.ref!,
                                     ),
                                   ),
                                 ),

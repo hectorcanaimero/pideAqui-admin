@@ -435,8 +435,8 @@ class _HoursPageWidgetState extends State<HoursPageWidget> {
                   child: PagedListView<DocumentSnapshot<Object?>?,
                       OpeningHourRecord>(
                     pagingController: _model.setListViewController(
-                        OpeningHourRecord.collection(FFAppState().companyRef),
-                        parent: FFAppState().companyRef),
+                        OpeningHourRecord.collection(FFAppState().company.ref),
+                        parent: FFAppState().company.ref),
                     padding: EdgeInsets.zero,
                     primary: false,
                     reverse: false,

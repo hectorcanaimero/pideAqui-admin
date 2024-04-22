@@ -98,7 +98,7 @@ class _CustomerPageWidgetState extends State<CustomerPageWidget> {
                         CustomersRecord.collection
                             .where(
                               'company',
-                              isEqualTo: FFAppState().companyRef,
+                              isEqualTo: FFAppState().company.ref,
                             )
                             .orderBy('cAt', descending: true),
                       ),

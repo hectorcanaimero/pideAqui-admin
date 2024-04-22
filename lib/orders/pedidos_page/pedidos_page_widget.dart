@@ -98,7 +98,7 @@ class _PedidosPageWidgetState extends State<PedidosPageWidget> {
                         OrdersRecord.collection
                             .where(
                               'company',
-                              isEqualTo: FFAppState().companyRef,
+                              isEqualTo: FFAppState().company.ref,
                             )
                             .orderBy('uAt', descending: true),
                       ),

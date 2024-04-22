@@ -135,7 +135,7 @@ class _BannersPageWidgetState extends State<BannersPageWidget> {
                                     .where(
                                       'companyRef',
                                       isEqualTo: functions.parseRefCompany(
-                                          FFAppState().companyRef!.id),
+                                          FFAppState().company.ref!.id),
                                     )
                                     .orderBy('cAt', descending: true),
                               )))

@@ -7,13 +7,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:styled_divider/styled_divider.dart';
-import 'package:collection/collection.dart';
-import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:webviewx_plus/webviewx_plus.dart';
 import 'create_company_page_model.dart';
 export 'create_company_page_model.dart';
 
@@ -38,11 +33,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
     _model.nameFieldTextController ??= TextEditingController();
     _model.nameFieldFocusNode ??= FocusNode();
 
-    _model.slugFieldTextController ??= TextEditingController(
-        text: valueOrDefault<String>(
-      _model.slug,
-      'aloja',
-    ));
+    _model.slugFieldTextController ??= TextEditingController();
     _model.slugFieldFocusNode ??= FocusNode();
 
     _model.venFieldTextController ??= TextEditingController();
@@ -66,8 +57,6 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -162,16 +151,6 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                             child: TextFormField(
                               controller: _model.nameFieldTextController,
                               focusNode: _model.nameFieldFocusNode,
-                              onChanged: (_) => EasyDebounce.debounce(
-                                '_model.nameFieldTextController',
-                                const Duration(milliseconds: 2000),
-                                () async {
-                                  setState(() {
-                                    _model.slug = functions.getSlug(
-                                        _model.nameFieldTextController.text);
-                                  });
-                                },
-                              ),
                               autofocus: false,
                               textCapitalization: TextCapitalization.words,
                               obscureText: false,
@@ -258,82 +237,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                   child: TextFormField(
                                     controller: _model.slugFieldTextController,
                                     focusNode: _model.slugFieldFocusNode,
-                                    onChanged: (_) => EasyDebounce.debounce(
-                                      '_model.slugFieldTextController',
-                                      const Duration(milliseconds: 2000),
-                                      () async {
-                                        if (functions.isSlug(_model
-                                            .slugFieldTextController.text)) {
-                                          _model.aleradyexist =
-                                              await queryCompaniesRecordOnce(
-                                            queryBuilder: (companiesRecord) =>
-                                                companiesRecord.where(
-                                              'slug',
-                                              isEqualTo: _model
-                                                  .slugFieldTextController.text,
-                                            ),
-                                            singleRecord: true,
-                                          ).then((s) => s.firstOrNull);
-                                          if (_model.aleradyexist != null) {
-                                            await showDialog(
-                                              context: context,
-                                              builder: (alertDialogContext) {
-                                                return WebViewAware(
-                                                  child: AlertDialog(
-                                                    title: const Text('Error'),
-                                                    content: const Text(
-                                                        'Ese nomber ya existe! intenta con otro nombre'),
-                                                    actions: [
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                alertDialogContext),
-                                                        child: const Text('Ok'),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                );
-                                              },
-                                            );
-                                            setState(() {
-                                              _model.slugFieldTextController
-                                                      ?.text =
-                                                  valueOrDefault<String>(
-                                                _model.slug,
-                                                'aloja',
-                                              );
-                                            });
-                                          }
-                                        } else {
-                                          await showDialog(
-                                            context: context,
-                                            builder: (alertDialogContext) {
-                                              return WebViewAware(
-                                                child: AlertDialog(
-                                                  title: const Text('Error'),
-                                                  content: const Text(
-                                                      'El nombre de tu tienda no debe tener caracteres especiales ni espacios. Verifica!'),
-                                                  actions: [
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              alertDialogContext),
-                                                      child: const Text('Ok'),
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
-                                            },
-                                          );
-                                        }
-
-                                        setState(() {});
-                                      },
-                                    ),
-                                    autofocus: true,
-                                    readOnly: FFAppState().companyRef == null
-                                        ? false
-                                        : true,
+                                    autofocus: false,
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       isDense: true,
@@ -758,10 +662,17 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                   ),
                                 }, companiesRecordReference);
                                 setState(() {
-                                  FFAppState().companyRef =
-                                      _model.crateCompany?.reference;
-                                  FFAppState().companyName =
-                                      _model.crateCompany!.name;
+                                  FFAppState().company = CompanyStruct(
+                                    ref: _model.crateCompany?.reference,
+                                    name: _model.crateCompany?.name,
+                                    operationMode:
+                                        _model.crateCompany?.operationMode,
+                                    phone: _model.crateCompany?.phone,
+                                    step: _model.crateCompany?.step,
+                                    country: _model.crateCompany?.country,
+                                    email: _model.crateCompany?.email,
+                                    status: true,
+                                  );
                                 });
                                 context.safePop();
                                 ScaffoldMessenger.of(context).showSnackBar(

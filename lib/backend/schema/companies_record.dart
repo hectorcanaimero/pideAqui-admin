@@ -107,6 +107,11 @@ class CompaniesRecord extends FirestoreRecord {
       _pricePerNeighborhood ?? const [];
   bool hasPricePerNeighborhood() => _pricePerNeighborhood != null;
 
+  // "step" field.
+  int? _step;
+  int get step => _step ?? 0;
+  bool hasStep() => _step != null;
+
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _logo = snapshotData['logo'] as String?;
@@ -133,6 +138,7 @@ class CompaniesRecord extends FirestoreRecord {
       snapshotData['pricePerNeighborhood'],
       PrecioBarrioStruct.fromMap,
     );
+    _step = castToType<int>(snapshotData['step']);
   }
 
   static CollectionReference get collection =>
@@ -185,6 +191,7 @@ Map<String, dynamic> createCompaniesRecordData({
   DateTime? cAt,
   String? slug,
   double? fixedTax,
+  int? step,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -203,6 +210,7 @@ Map<String, dynamic> createCompaniesRecordData({
       'cAt': cAt,
       'slug': slug,
       'fixedTax': fixedTax,
+      'step': step,
     }.withoutNulls,
   );
 
@@ -232,7 +240,9 @@ class CompaniesRecordDocumentEquality implements Equality<CompaniesRecord> {
         e1?.slug == e2?.slug &&
         listEquality.equals(e1?.operationMode, e2?.operationMode) &&
         e1?.fixedTax == e2?.fixedTax &&
-        listEquality.equals(e1?.pricePerNeighborhood, e2?.pricePerNeighborhood);
+        listEquality.equals(
+            e1?.pricePerNeighborhood, e2?.pricePerNeighborhood) &&
+        e1?.step == e2?.step;
   }
 
   @override
@@ -254,7 +264,8 @@ class CompaniesRecordDocumentEquality implements Equality<CompaniesRecord> {
         e?.slug,
         e?.operationMode,
         e?.fixedTax,
-        e?.pricePerNeighborhood
+        e?.pricePerNeighborhood,
+        e?.step
       ]);
 
   @override

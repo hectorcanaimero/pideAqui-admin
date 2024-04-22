@@ -199,7 +199,7 @@ class _DetailCustomerPageWidgetState extends State<DetailCustomerPageWidget> {
                                       .where(Filter.or(
                                         Filter(
                                           'company',
-                                          isEqualTo: FFAppState().companyRef,
+                                          isEqualTo: FFAppState().company.ref,
                                         ),
                                         Filter(
                                           'customer',

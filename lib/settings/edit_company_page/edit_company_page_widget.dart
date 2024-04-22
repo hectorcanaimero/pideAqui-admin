@@ -680,8 +680,17 @@ class _EditCompanyPageWidgetState extends State<EditCompanyPageWidget> {
                                       ),
                                     });
                                     setState(() {
-                                      FFAppState().companyName =
-                                          _model.nameFieldTextController.text;
+                                      FFAppState().company = CompanyStruct(
+                                        ref: _model.resCompany?.reference,
+                                        name: _model.resCompany?.name,
+                                        operationMode:
+                                            _model.resCompany?.operationMode,
+                                        phone: _model.resCompany?.phone,
+                                        step: _model.resCompany?.step,
+                                        country: _model.resCompany?.country,
+                                        email: _model.resCompany?.email,
+                                        status: true,
+                                      );
                                     });
                                     context.safePop();
                                     ScaffoldMessenger.of(context).showSnackBar(

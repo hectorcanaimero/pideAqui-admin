@@ -38,8 +38,6 @@ class CreateCompanyPageModel extends FlutterFlowModel<CreateCompanyPageWidget> {
     return null;
   }
 
-  // Stores action output result for [Firestore Query - Query a collection] action in SlugField widget.
-  CompaniesRecord? aleradyexist;
   // State field(s) for CountryDown widget.
   String? countryDownValue;
   FormFieldController<String>? countryDownValueController;

@@ -19,12 +19,6 @@ class FFAppState extends ChangeNotifier {
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
     _safeInit(() {
-      _companyRef = prefs.getString('ff_companyRef')?.ref ?? _companyRef;
-    });
-    _safeInit(() {
-      _companyName = prefs.getString('ff_companyName') ?? _companyName;
-    });
-    _safeInit(() {
       if (prefs.containsKey('ff_userPlan')) {
         try {
           final serializedData = prefs.getString('ff_userPlan') ?? '{}';
@@ -38,6 +32,17 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _settingStatus = prefs.getInt('ff_settingStatus') ?? _settingStatus;
     });
+    _safeInit(() {
+      if (prefs.containsKey('ff_company')) {
+        try {
+          final serializedData = prefs.getString('ff_company') ?? '{}';
+          _company =
+              CompanyStruct.fromSerializableMap(jsonDecode(serializedData));
+        } catch (e) {
+          print("Can't decode persisted data type. Error: $e.");
+        }
+      }
+    });
   }
 
   void update(VoidCallback callback) {
@@ -46,22 +51,6 @@ class FFAppState extends ChangeNotifier {
   }
 
   late SharedPreferences prefs;
-
-  DocumentReference? _companyRef;
-  DocumentReference? get companyRef => _companyRef;
-  set companyRef(DocumentReference? value) {
-    _companyRef = value;
-    value != null
-        ? prefs.setString('ff_companyRef', value.path)
-        : prefs.remove('ff_companyRef');
-  }
-
-  String _companyName = '';
-  String get companyName => _companyName;
-  set companyName(String value) {
-    _companyName = value;
-    prefs.setString('ff_companyName', value);
-  }
 
   PlanStruct _userPlan = PlanStruct();
   PlanStruct get userPlan => _userPlan;
@@ -86,6 +75,18 @@ class FFAppState extends ChangeNotifier {
   set settingStatus(int value) {
     _settingStatus = value;
     prefs.setInt('ff_settingStatus', value);
+  }
+
+  CompanyStruct _company = CompanyStruct();
+  CompanyStruct get company => _company;
+  set company(CompanyStruct value) {
+    _company = value;
+    prefs.setString('ff_company', value.serialize());
+  }
+
+  void updateCompanyStruct(Function(CompanyStruct) updateFn) {
+    updateFn(_company);
+    prefs.setString('ff_company', _company.serialize());
   }
 }
 

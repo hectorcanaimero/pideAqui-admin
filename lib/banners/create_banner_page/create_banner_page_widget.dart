@@ -387,7 +387,7 @@ class _CreateBannerPageWidgetState extends State<CreateBannerPageWidget> {
                           await BannersRecord.collection
                               .doc()
                               .set(createBannersRecordData(
-                                companyRef: FFAppState().companyRef,
+                                companyRef: FFAppState().company.ref,
                                 title: _model.titleFieldTextController.text,
                                 image: _model.uploadedFileUrl,
                                 status: true,

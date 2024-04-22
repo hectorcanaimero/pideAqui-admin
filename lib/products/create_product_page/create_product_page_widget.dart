@@ -436,8 +436,9 @@ class _CreateProductPageWidgetState extends State<CreateProductPageWidget>
                                                           categoriesRecord
                                                               .where(
                                                     'companyRef',
-                                                    isEqualTo:
-                                                        FFAppState().companyRef,
+                                                    isEqualTo: FFAppState()
+                                                        .company
+                                                        .ref,
                                                   ),
                                                 ),
                                                 builder: (context, snapshot) {
@@ -1060,8 +1061,9 @@ class _CreateProductPageWidgetState extends State<CreateProductPageWidget>
                                                     image: _model.image,
                                                     user: currentUserReference,
                                                     cAt: getCurrentTimestamp,
-                                                    companyRef:
-                                                        FFAppState().companyRef,
+                                                    companyRef: FFAppState()
+                                                        .company
+                                                        .ref,
                                                     description: _model
                                                         .descriptionFieldTextController
                                                         .text,
@@ -1094,7 +1096,8 @@ class _CreateProductPageWidgetState extends State<CreateProductPageWidget>
                                                                 getCurrentTimestamp,
                                                             companyRef:
                                                                 FFAppState()
-                                                                    .companyRef,
+                                                                    .company
+                                                                    .ref,
                                                             description: _model
                                                                 .descriptionFieldTextController
                                                                 .text,

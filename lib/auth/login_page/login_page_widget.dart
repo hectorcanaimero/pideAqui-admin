@@ -333,10 +333,24 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                               .alreadyExistCompany?.reference !=
                                           null) {
                                         setState(() {
-                                          FFAppState().companyRef = _model
-                                              .alreadyExistCompany?.reference;
-                                          FFAppState().companyName =
-                                              _model.alreadyExistCompany!.name;
+                                          FFAppState().company = CompanyStruct(
+                                            ref: _model
+                                                .alreadyExistCompany?.reference,
+                                            name: _model
+                                                .alreadyExistCompany?.name,
+                                            operationMode: _model
+                                                .alreadyExistCompany
+                                                ?.operationMode,
+                                            phone: _model
+                                                .alreadyExistCompany?.phone,
+                                            step: _model
+                                                .alreadyExistCompany?.step,
+                                            country: _model
+                                                .alreadyExistCompany?.country,
+                                            email: _model
+                                                .alreadyExistCompany?.email,
+                                            status: true,
+                                          );
                                         });
                                       }
 

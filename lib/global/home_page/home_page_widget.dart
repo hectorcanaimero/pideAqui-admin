@@ -46,7 +46,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           });
         }),
         Future(() async {
-          if (!(FFAppState().companyRef != null)) {
+          if (!(FFAppState().company != null)) {
             context.pushNamed(
               'CreateCompanyPage',
               extra: <String, dynamic>{
@@ -120,24 +120,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         ),
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 6.0),
-                          child: Text(
-                            FFAppState().companyRef!.id,
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Readex Pro',
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  letterSpacing: 0.0,
-                                ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 8.0),
                           child: Text(
-                            FFAppState().companyName,
+                            FFAppState().company.name,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -163,7 +148,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   padding:
                       const EdgeInsetsDirectional.fromSTEB(18.0, 0.0, 18.0, 18.0),
                   child: LinearPercentIndicator(
-                    percent: 0.5,
+                    percent: 0.0,
                     lineHeight: 40.0,
                     animation: true,
                     animateFromLastPercent: true,
@@ -279,7 +264,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       Filter(
                                         'company',
                                         isEqualTo: functions.parseRefCompany(
-                                            FFAppState().companyRef!.id),
+                                            FFAppState().company.ref!.id),
                                       ),
                                       Filter(
                                         'cAt',
